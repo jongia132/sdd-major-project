@@ -20,14 +20,14 @@ const Pomodoro = () => {
             if (Time.count < 1) {
                 document.getElementById("timer").innerText = "lol"
                 clearInterval(timer)
-                const sound = new Audio("lol.mp3")
-                sound.play()
+                alert("Done!")
             }
             else {
                 Time.count -= 1
                 Time.mins = Math.floor(Time.count/60)
                 Time.secs = Time.count % 60
                 console.table(Time)
+                CurrentTime()
             }
         }, 1000)
     }
@@ -39,14 +39,14 @@ const Pomodoro = () => {
     }
 
     function CurrentTime() {
-        return (<span>{Time.mins}:{Time.secs}</span>)
+        return <span>{Time.mins}:{Time.secs}</span>;
     }
 
     // Return app
     return (
     <div className="pomodoro-timer">
         <h1>Funny Timer</h1>
-        <p className="timer"><CurrentTime /></p>
+        <p id="timer"><CurrentTime /></p>
         <input type="number" min="1" max="99" id="length" className="length" step="1"></input>
         <input type="submit" onClick={startTimer} id="start" className="start" value="Start"></input>
     </div>
