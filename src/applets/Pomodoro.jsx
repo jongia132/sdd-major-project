@@ -12,6 +12,7 @@ const Pomodoro = () => {
         if (Time.mins < 1 || Time.mins > 99) {
             return alert("Fuck you")
         }
+        // eslint-disable-next-line
         else if (Time.mins == 69) {
             return alert("no")
         }
