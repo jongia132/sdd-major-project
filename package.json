@@ -13,10 +13,9 @@
     "react-router-dom": "^6.6.1"
   },
   "scripts": {
-    "start": "concurrently \"craco start\" \"wait-on http://localhost:3000 && electron .\"",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject",
+    "start": "concurrently \"react-scripts start\" \"wait-on http://127.0.0.1:3000 && electron .\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "electron": "electron ."
   },
   "eslintConfig": {
@@ -38,9 +37,7 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^7.0.0",
     "concurrently": "^7.6.0",
-    "cross-env": "^7.0.3",
     "electron": "^22.0.2",
     "wait-on": "^7.0.1"
   }
