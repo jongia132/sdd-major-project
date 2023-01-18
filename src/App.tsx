@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Index from "./applets/Index"
+import Index from "./applets/index"
 import Pomodoro from './applets/Pomodoro';
 
 function App() {
