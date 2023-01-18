@@ -1,4 +1,3 @@
-import React from 'react';
 import './Pomodoro.css'
 const Pomodoro = () => {
     var Time = {
