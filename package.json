@@ -47,5 +47,6 @@
     "concurrently": "^7.6.0",
     "electron": "^22.0.2",
     "wait-on": "^7.0.1"
-  }
+  },
+  "packageManager": "yarn@3.3.1"
 }
