@@ -1,0 +1,32 @@
+html {
+    background:#171717;
+    color: white
+}
+
+nav {
+    width: fit-content;
+    background: #272727;
+    padding: 60px;
+    float: left
+}
+
+nav > ul {
+    padding: 0
+}
+
+nav > ul > li {
+    list-style: none;
+    box-sizing: border-box;
+    width: 394px;
+    height: 76px;
+    margin-top: 32px;
+    padding-left: 50px;
+    background: #4D4D4D;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.menu-options {
+    font-size: 25pt;
+}
