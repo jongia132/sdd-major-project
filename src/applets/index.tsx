@@ -1,6 +1,8 @@
 const Index = () => {
     return (
-        <a href="/pomodoro">Pomodoro</a>
+        <main>
+            <a href="/pomodoro">Pomodoro</a>
+        </main>
     )
 }
 
