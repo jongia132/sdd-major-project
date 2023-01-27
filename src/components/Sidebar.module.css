@@ -1,0 +1,9 @@
+.sidebar {
+    backdrop-filter: blur(50px) brightness(0.4) contrast(1.1);
+    border-radius: 0 25px 25px 0;
+    height: 100dvh;
+    width: 300px;
+    padding: 0;
+    float:left;
+    color: white;
+}

@@ -1,4 +1,4 @@
-import './Pomodoro.css'
+import styles from './Pomodoro.module.css'
 const Pomodoro = () => {
     var Time = {
         mins: 0,

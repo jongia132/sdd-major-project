@@ -1,11 +1,19 @@
+import styles from './Sidebar.module.css'
 const Sidebar = () => {
     return(
-        <nav>
+        <nav className={styles.sidebar}>
             {/* Profile menu */}
-            <div></div>
+            <div>
+                <img></img>
+                <span>NAME</span>
+            </div>
 
             {/* Main navigation modules */}
-            <div></div>
+            <div>
+                <a href="/pomodoro">Pomodoro</a>
+            </div>
+            {/* Settings */}
+            <a href="/settings">Settings</a>
         </nav>
     )
 }

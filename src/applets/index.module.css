@@ -1,0 +1,16 @@
+.html {
+    background: var(--background-image, url("../assets/Background.png"));
+    background-size: cover;
+    height:100dvh;
+}
+
+.content {
+    margin: 3dvw;
+    display: inline-block;
+    color: white
+}
+
+.greeting {
+    font-size: 40pt;
+    font-weight: bold;
+}

@@ -9,3 +9,8 @@
     font-weight: bold;
     margin:0
 }
+
+/* Variables */
+:root {
+  --background-image: url('./assets/custom.jpg')
+}

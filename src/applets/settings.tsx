@@ -1,20 +1,18 @@
-import './settings.css'
+import styles from './settings.module.css'
 import BackButton from '../components/backButton'
 const settings = () => {
-
-
     return(
-        <div>
-            <nav>
+        <div className={styles.html}>
+            <nav className={styles.settingsMenu}>
                 <BackButton/>
                 <a href="/">Home</a>
                 <p className='section-header'>Category</p>
                 <ul>
-                    <li className='menu-options'>General</li>
-                    <li className='menu-options'>Appearance</li>
-                    <li className='menu-options'>Applet Settings</li>
-                    <li className='menu-options'>User Account</li>
-                    <li className='menu-options'>About</li>
+                    <li>General</li>
+                    <li>Appearance</li>
+                    <li>Applet Settings</li>
+                    <li>User Account</li>
+                    <li>About</li>
                 </ul>
             </nav>
             <section id="general">
@@ -32,7 +30,9 @@ const settings = () => {
             <section id="appearance"></section>
             <section id="applet-settings"></section>
             <section id="user-account"></section>
-            <section id="about"></section>
+            <section id="about">
+                <p>Version 0.0.43 A</p>
+            </section>
         </div>
     )
 }

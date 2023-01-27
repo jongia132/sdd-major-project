@@ -1,9 +1,14 @@
+import styles from "./index.module.css"
+import Sidebar from "../components/Sidebar"
 const Index = () => {
     return (
-        <main>
-            <a href="/pomodoro">Pomodoro</a>
-            <a href="/settings">Settings</a>
-        </main>
+        <div className={styles.html}>
+            <Sidebar/>
+            <main className={styles.content}>
+                <p className={styles.greeting}>Good morning, Jonathan.</p>
+            </main>
+            
+        </div>
     )
 }
 

@@ -1,20 +1,21 @@
-html {
+.html {
     background:#171717;
-    color: white
+    color: white;
+    height: 100dvh
 }
 
-nav {
+.settingsMenu {
     width: fit-content;
     background: #272727;
     padding: 60px;
     float: left
 }
 
-nav > ul {
+.settingsMenu > ul {
     padding: 0
 }
 
-nav > ul > li {
+.settingsMenu > ul > li {
     list-style: none;
     box-sizing: border-box;
     width: 394px;
@@ -25,8 +26,5 @@ nav > ul > li {
     display:flex;
     flex-direction: row;
     align-items: center;
-}
-
-.menu-options {
     font-size: 25pt;
 }
