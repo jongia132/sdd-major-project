@@ -41,6 +41,7 @@ const Pomodoro = () => {
     // Return app
     return (
     <div className="pomodoro-timer">
+        <a href="/">Home</a>
         <h1>Pomodoro Timer</h1>
         <p id="timer"><CurrentTime /></p>
         <input type="number" min="1" max="99" id="length" className="length" step="1"></input>
