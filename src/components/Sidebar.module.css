@@ -6,6 +6,13 @@
     padding: 0;
     float:left;
     color: white;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.navList {
+    align-items: left;
 }
 
 .menuItem {
@@ -16,5 +23,13 @@
 }
 
 .icon {
-    margin: 10px
+    margin: 10px;
+}
+
+.menuIcon {
+    float:left
+}
+
+.profileBox {
+    float: left
 }

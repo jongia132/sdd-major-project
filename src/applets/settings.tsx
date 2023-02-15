@@ -31,7 +31,8 @@ const settings = () => {
             <section id="applet-settings"></section>
             <section id="user-account"></section>
             <section id="about">
-                <p>Version 0.0.43 A</p>
+                <p>Debug</p>
+                <p>{navigator.userAgent}</p>
             </section>
         </div>
     )
