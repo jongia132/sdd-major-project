@@ -1,4 +1,5 @@
 import styles from './Sidebar.module.css'
+import Link from "react-router-dom"
 
 // Icons
 import menuIcon from "../assets/icons/menu.svg"
@@ -47,8 +48,10 @@ const Sidebar = () => {
                 </div>
             </section>
             
-            {/* Settings */}
-            <a href="/settings">Settings</a>
+            {/* Bottom */}
+            <section className={styles.bottom}>
+                <a href="/settings">Settings</a>
+            </section>
         </nav>
     )
 }

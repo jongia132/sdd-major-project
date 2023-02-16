@@ -8,7 +8,11 @@
     color: white;
     display:flex;
     flex-direction: column;
-    justify-content: flex-start;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    padding: 10px;
+    box-sizing: border-box
 }
 
 .navList {
@@ -23,7 +27,8 @@
 }
 
 .icon {
-    margin: 10px;
+    margin: 10px 10px 10px 0;
+    max-height: 48px;
 }
 
 .menuIcon {
@@ -32,4 +37,8 @@
 
 .profileBox {
     float: left
+}
+
+.bottom {
+    margin-top:auto;
 }

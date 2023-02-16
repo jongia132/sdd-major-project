@@ -1,5 +1,6 @@
 import './App.css'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
+import Sidebar from './components/Sidebar'
 import Index from "./applets/index"
 import Pomodoro from './applets/Pomodoro'
 import Settings from "./applets/settings"
@@ -7,13 +8,14 @@ import Settings from "./applets/settings"
 function App() {
   return (
     <div>
-      <Router>
+      <BrowserRouter>
+      <Sidebar/>
         <Routes>
           <Route path='/' element={<Index/>}/>
           <Route path='/pomodoro' element={<Pomodoro/>}/>
           <Route path='/settings' element={<Settings/>}/>
         </Routes>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 }
