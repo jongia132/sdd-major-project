@@ -1,8 +1,7 @@
 .sidebar {
-    backdrop-filter: blur(25px) brightness(0.4) contrast(1.1);
+    backdrop-filter: blur(20px) brightness(0.4) contrast(0.9);
     border-radius: 0 25px 25px 0;
     height: 100dvh;
-    width: 300px;
     padding: 0;
     float:left;
     color: white;
@@ -17,7 +16,7 @@
 
 .navList {
     align-items: left;
-    overflow-y:auto
+    overflow-y: auto
 }
 
 .menuItem {
@@ -25,15 +24,35 @@
     flex-direction: row;
     align-items: center;
     font-size: 16pt;
+    border-radius: var(--rounded-radius);
+    margin-top: 5px;
+    text-decoration: none;
+    color: white;
+    padding: 5px
+}
+
+.menuItem:hover {
+    background: rgba(255, 255, 255, 0.182)
 }
 
 .icon {
-    margin: 10px 10px 10px 0;
-    max-height: 48px;
+    height: 38px;
+    width: 38px;
+    object-fit: contain;
+}
+
+.navEntry {
+    margin-left: 8px;
+    /* display: none */
 }
 
 .menuIcon {
-    float:left
+    padding: 5px;
+    border-radius: var(--rounded-radius)
+}
+
+.menuIcon:hover {
+    background: rgba(255, 255, 255, 0.182)
 }
 
 .profileBox {
@@ -42,4 +61,12 @@
 
 .bottom {
     margin-top:auto;
+    width: fit-content;
+    height: 38px;
+    border-radius: var(--rounded-radius);
+    padding: 5px
+}
+
+.bottom:hover {
+    background: rgba(255, 255, 255, 0.182)
 }

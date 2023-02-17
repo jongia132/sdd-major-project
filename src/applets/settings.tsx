@@ -1,12 +1,12 @@
 import styles from './settings.module.css'
 import BackButton from '../components/backButton'
+
 const settings = () => {
     return(
         <div className={styles.html}>
             <nav className={styles.settingsMenu}>
                 <BackButton/>
-                <a href="/">Home</a>
-                <p className='section-header'>Category</p>
+                <p className='section-header'>Settings</p>
                 <ul>
                     <li>General</li>
                     <li>Appearance</li>

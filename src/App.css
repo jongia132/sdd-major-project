@@ -5,12 +5,14 @@
 
 .section-header {
     color: white;
-    font-size: 40pt;
+    font-size: 30pt;
     font-weight: bold;
-    margin:0
+    margin:0;
+    padding-top: 1em
 }
 
 /* Variables */
 :root {
-  --background-image: url('./assets/custom.jpg')
+  --background-image: url('./assets/Yum.jpg');
+  --rounded-radius: 5px
 }
