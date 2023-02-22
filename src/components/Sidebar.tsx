@@ -1,6 +1,6 @@
 import styles from './Sidebar.module.css'
 import { Link } from "react-router-dom"
-
+import React from 'react'
 // Icons
 import dashboardIcon from "../assets/icons/dashboard.svg"
 import menuIcon from "../assets/icons/menu.svg"
@@ -12,12 +12,12 @@ import uploadIcon from '../assets/icons/folder_upload.svg'
 import settingsIcon from '../assets/icons/settings.svg'
 
 
-
 const Sidebar = () => {
+    var [state, setHidden] = React.useState(false)
     return(
-        <nav className={styles.sidebar}>
+        <nav className={`${styles.sidebar} ${state ? styles.collapsed : null}`}>
             {/* Menu icon */}
-            <img className={`${styles.menuIcon} ${styles.icon}`} src={menuIcon} draggable="false"></img>
+            <img className={`${styles.menuIcon} ${styles.icon}`} src={menuIcon} onClick={() => setHidden(!state)} draggable="false"></img>
 
             {/* Profile menu */}
             <section className={styles.profileBox}>
@@ -29,27 +29,27 @@ const Sidebar = () => {
             <section className={styles.navList}>
                 <Link to={'/'} className={styles.menuItem}>
                     <img draggable="false" className={styles.icon} src={dashboardIcon}></img>
-                    <span className={styles.navEntry}>Dashboard</span>
+                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Dashboard</span>
                 </Link>
                 <Link to={'/pomodoro'} className={styles.menuItem}>
                     <img draggable="false" className={styles.icon} src={pomodoroIcon}></img>
-                    <span className={styles.navEntry}>Pomodoro timer</span>
+                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Pomodoro timer</span>
                 </Link>
                 <div className={styles.menuItem}>
                     <img draggable="false" className={styles.icon} src={taskIcon}></img>
-                    <span className={styles.navEntry}>Tasks</span>
+                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Tasks</span>
                 </div>
                 <div className={styles.menuItem}>
                     <img draggable="false" className={styles.icon} src={focusIcon}></img>
-                    <span className={styles.navEntry}>Focus</span>
+                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Focus</span>
                 </div>
                 <div className={styles.menuItem}>
                     <img draggable="false" className={styles.icon} src={calendarIcon}></img>
-                    <span className={styles.navEntry}>Schedule</span>
+                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Schedule</span>
                 </div>
                 <div className={styles.menuItem}>
                     <img draggable="false" className={styles.icon} src={uploadIcon}></img>
-                    <span className={styles.navEntry}>File transfer</span>
+                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>File transfer</span>
                 </div>
             </section>
             
