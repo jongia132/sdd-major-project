@@ -4,7 +4,7 @@ const backButton = () => {
 
     return(
         <Link to={'/'} style={{
-            fontSize: "20px",
+            fontSize: "var(--font-regular)",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",

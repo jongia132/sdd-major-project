@@ -1,5 +1,7 @@
 :root {
-    --hover: rgba(210, 255, 255, 0.182)
+    --hover: rgba(210, 255, 255, 0.182);
+    --icon-padding: 0.45rem;
+    --icon-size: 28px
 }
 
 .sidebar {
@@ -14,11 +16,11 @@
     width: 230px;
     box-sizing: border-box;
     transition: ease-out;
-    transition-duration: 200ms;
+    transition-duration: 150ms;
 }
 
 .collapsed {
-    width: 58px;
+    width: calc(var(--icon-padding) + var(--icon-size)*2)
 }
 
 .navList {
@@ -36,8 +38,7 @@
     border-radius: var(--rounded-radius);
     margin-top: 5px;
     text-decoration: none;
-    color: white;
-    padding: 0.45rem
+    padding: var(--icon-padding)
 }
 
 .menuItem:hover {
@@ -45,8 +46,7 @@
 }
 
 .icon {
-    height: 28px;
-    width: 28px;
+    height: var(--icon-size);
     object-fit: contain;
 }
 
@@ -55,12 +55,13 @@
 }
 
 .hidden {
-    display: none;
+    /* display: none; */
 }
 
 .menuIcon {
-    padding: 5px;
-    border-radius: var(--rounded-radius)
+    padding: var(--icon-padding);
+    border-radius: var(--rounded-radius);
+    width: var(--icon-size)
 }
 
 .menuIcon:hover {
@@ -74,9 +75,9 @@
 .bottom {
     margin-top:auto;
     width: fit-content;
-    height: 28px;
+    height: var(--icon-size);
     border-radius: var(--rounded-radius);
-    padding: 5px
+    padding: var(--icon-padding)
 }
 
 .bottom:hover {
