@@ -3,16 +3,18 @@
   font-family: 'Figtree', sans-serif;
 }
 
-.section-header {
-    color: white;
-    font-size: 30pt;
-    font-weight: bold;
-    margin:0;
-    padding-top: 1em
+.prevent-select {
+  user-select: none; /* Standard syntax */
 }
 
 /* Variables */
 :root {
+  /* Personalisation */
   --background-image: url('./assets/Yum.jpg');
-  --rounded-radius: 5px
+
+  /* Design System */
+  --rounded-radius: 5px;
+  --font-regular: 1rem;
+  --font-emphasis: 1.5rem;
+  --font-heading: 1.9rem
 }

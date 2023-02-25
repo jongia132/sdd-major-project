@@ -1,13 +1,11 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Sidebar from './components/Sidebar'
 import Index from "./applets/index"
-import Pomodoro from './applets/Pomodoro'
+import { Pomodoro } from './applets/Pomodoro'
 import Settings from "./applets/settings"
 import Layout from './components/Layout'
 
 function App() {
-  
   return (
     <div>
       <BrowserRouter>

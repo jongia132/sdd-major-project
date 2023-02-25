@@ -3,10 +3,10 @@ import BackButton from '../components/backButton'
 
 const settings = () => {
     return(
-        <div className={styles.html}>
+        <div className={`${styles.html} prevent-select`}>
             <nav className={styles.settingsMenu}>
                 <BackButton/>
-                <p className='section-header'>Settings</p>
+                <p className={styles.section_header}>Settings</p>
                 <ul>
                     <li>General</li>
                     <li>Appearance</li>
@@ -15,25 +15,36 @@ const settings = () => {
                     <li>About</li>
                 </ul>
             </nav>
-            <section id="general">
-                <p className='section-header'>Preferences</p>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>Some setting</td>
-                            <td></td>
-                            <td>The option</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-            <section id="appearance"></section>
-            <section id="applet-settings"></section>
-            <section id="user-account"></section>
-            <section id="about">
-                <p>Debug</p>
-                <p>{navigator.userAgent}</p>
-            </section>
+            <div className={styles.prefPane}>
+                <p className={styles.section_header}>Preferences</p>
+                <section id="general">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Some setting</td>
+                                <td></td>
+                                <td>The option</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section id="appearance"></section>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Background</td>
+                                <td className={styles.break}></td>
+                                <td>File Picker</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <section id="applet-settings"></section>
+                <section id="user-account"></section>
+                <section id="about">
+                    <p>Debug</p>
+                    <p>{navigator.userAgent}</p>
+                </section>
+            </div>
         </div>
     )
 }

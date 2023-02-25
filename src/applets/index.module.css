@@ -16,3 +16,15 @@
     font-weight: bold;
     text-shadow: 0 0 8px rgba(0, 0, 0, 0.326);
 }
+
+.widgets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 5em;
+    column-gap: 1em;
+}
+
+.widget {
+    margin: 10px;
+    background: white;
+}

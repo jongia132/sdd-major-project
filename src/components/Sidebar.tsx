@@ -15,15 +15,15 @@ import settingsIcon from '../assets/icons/settings.svg'
 const Sidebar = () => {
     var [state, setHidden] = React.useState(false)
     return(
-        <nav className={`${styles.sidebar} ${state ? styles.collapsed : null}`}>
+        <nav className={`${styles.sidebar} ${state ? styles.collapsed : null} prevent-select`}>
             {/* Menu icon */}
             <img className={`${styles.menuIcon} ${styles.icon}`} src={menuIcon} onClick={() => setHidden(!state)} draggable="false"></img>
 
-            {/* Profile menu */}
+            {/* Profile menu
             <section className={styles.profileBox}>
                 <img draggable="false"></img>
                 <span>NAME</span>
-            </section>
+            </section> */}
 
             {/* Main navigation modules */}
             <section className={styles.navList}>

@@ -1,17 +1,18 @@
 .html {
     background:#171717;
     color: white;
-    height: 100dvh
+    display:grid;
+    grid-template-columns: auto 1fr
 }
 
 .settingsMenu {
     width: fit-content;
     background: #272727;
-    padding: 60px;
+    padding: 3em;
     float: left;
-    padding-left:10dvw;
     height:100dvh;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .settingsMenu > ul {
@@ -21,15 +22,28 @@
 .settingsMenu > ul > li {
     list-style: none;
     box-sizing: border-box;
-    /* width: 300px; */
-    height: 45px;
     border-radius: var(--rounded-radius);
-    margin-top: 25px;
-    padding-left: 40px;
-    padding-right: 50px;
+    margin-top: 1rem;
+    padding: 0.6em 1.5em;
     background: #4D4D4D;
-    display:flex;
-    flex-direction: row;
+    display:grid;
     align-items: center;
-    font-size: 16pt;
+    font-size: var(--font-regular);
+}
+
+.prefPane {
+    display:grid;
+    min-height: 100dvh;
+}
+
+.section_header {
+    font-size: var(--font-heading);
+    font-weight: bold;
+    margin:0;
+    padding-top: 1em
+}
+
+.break {
+    border-left: white 2px solid;
+    width: 0
 }

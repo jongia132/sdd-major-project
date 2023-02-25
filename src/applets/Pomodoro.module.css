@@ -12,7 +12,7 @@ input {
     font-size: 99pt;
 }
 
-#timer {
+.timer {
     font-size: 49pt;
     text-align: center;
 }

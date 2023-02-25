@@ -1,14 +1,15 @@
 import styles from './Pomodoro.module.css'
+import React from "react"
 const Pomodoro = () => {
-    var Time = {
+    let Time = {
         mins: 0,
         secs: 0,
         count: 0
     };
 
-    // function startTimer() {
-    //     setTime(document.getElementById("length").value)
-    //     if (Time.mins < 1 || Time.mins > 99) {
+    // function startTimer(mins: number) {
+    //     setTime(mins)
+    //         if (Time.mins < 1 || Time.mins > 99) {
     //         return alert("Invalid value")
     //     }
     //     document.getElementById("start").setAttribute('disabled', true)
@@ -23,29 +24,33 @@ const Pomodoro = () => {
     //             Time.mins = Math.floor(Time.count/60)
     //             Time.secs = Time.count % 60
     //             console.table(Time)
-    //             CurrentTime()
+    //             return <span>{Time.mins}:{Time.secs}</span>;
     //         }
     //     }, 1000)
     // }
 
-    // // Timer components
-    // function setTime(mins) {
-    //     Time.mins = mins
-    //     Time.count = mins*60
-    // }
-
-    function CurrentTime() {
-        return <span>{Time.mins}:{Time.secs}</span>;
+    // Timer components
+    function setTime(mins: number) {
+        Time.mins = mins
+        Time.count = mins*60
     }
 
     // Return app
     return (
-    <div className="pomodoro-timer">
+    <div>
         <span>Pomodoro Timer</span>
-        <p id="timer"><CurrentTime /></p>
-        <input type="number" min="1" max="99" id="length" className="length" step="1"></input>
-        {/* <input type="submit" onClick={startTimer} id="start" className="start" value="Start"></input> */}
+        <p className={styles.timer}></p>
+        <input type="number" min="1" max="99" id="length" className={styles.input} step="1"></input>
+        {/* <button type="submit" onClick={startTimer} id="start" className={styles.button} value="Start"></button> */}
     </div>
     )
 }
-export default Pomodoro;
+
+class PomodoroWidget extends React.Component {
+    render() {
+        return (
+            <p>THIS IS WORKING!</p>
+        );
+    }
+}
+export {Pomodoro, PomodoroWidget}
