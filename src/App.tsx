@@ -1,19 +1,22 @@
 import './App.css'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Index from "./applets/index"
-import Pomodoro from './applets/Pomodoro'
+import { Pomodoro } from './applets/Pomodoro'
 import Settings from "./applets/settings"
+import Layout from './components/Layout'
 
 function App() {
   return (
     <div>
-      <Router>
+      <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Index/>}/>
-          <Route path='/pomodoro' element={<Pomodoro/>}/>
+          <Route path='/' element={<Layout/>}>
+            <Route index element={<Index />} />
+            <Route path='/pomodoro' element={<Pomodoro/>}/>
+          </Route>
           <Route path='/settings' element={<Settings/>}/>
         </Routes>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 }
