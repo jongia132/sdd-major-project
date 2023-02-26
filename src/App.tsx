@@ -2,7 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Index from "./applets/index"
 import { Pomodoro } from './applets/Pomodoro'
-import Settings from "./applets/settings"
+import Settings from "./components/settings/settings"
 import Layout from './components/Layout'
 
 function App() {
@@ -10,11 +10,11 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Layout/>}>
+          <Route path='/' element={<Layout />}>
             <Route index element={<Index />} />
-            <Route path='/pomodoro' element={<Pomodoro/>}/>
+            <Route path='/pomodoro' element={<Pomodoro />}/>
           </Route>
-          <Route path='/settings' element={<Settings/>}/>
+          <Route path='/settings' element={<Settings />}/>
         </Routes>
       </BrowserRouter>
     </div>

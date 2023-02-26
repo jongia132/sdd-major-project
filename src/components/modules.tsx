@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import backIcon from "../assets/arrow_back.svg"
-const backButton = () => {
-
+const BackButton = () => {
     return(
         <Link to={'/'} style={{
             fontSize: "var(--font-regular)",
@@ -13,4 +12,11 @@ const backButton = () => {
         </Link>
     )
 }
-export default backButton
+
+const primaryButton = (type: number, msg: string) => {
+    return(
+        <button>Testing</button>
+    )
+}
+
+export {BackButton, primaryButton} 

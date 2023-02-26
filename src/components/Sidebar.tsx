@@ -1,6 +1,7 @@
 import styles from './Sidebar.module.css'
 import { Link } from "react-router-dom"
 import React from 'react'
+
 // Icons
 import dashboardIcon from "../assets/icons/dashboard.svg"
 import menuIcon from "../assets/icons/menu.svg"
@@ -11,9 +12,24 @@ import calendarIcon from '../assets/icons/calendar.svg'
 import uploadIcon from '../assets/icons/folder_upload.svg'
 import settingsIcon from '../assets/icons/settings.svg'
 
-
 const Sidebar = () => {
-    var [state, setHidden] = React.useState(false)
+    // Generate sidebar entries
+    interface listformat {
+        lnk: string
+        icon: string
+        name: string
+    }
+    function BuildList({lnk, icon, name}: listformat) {
+        return(
+            <Link to={lnk} className={styles.menuItem}>
+                <img draggable="false" className={styles.icon} src={icon}></img>
+                <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>{name}</span>
+            </Link>
+        )
+    }
+
+    // Toggle sidebar state
+    let [state, setHidden] = React.useState(false)
     return(
         <nav className={`${styles.sidebar} ${state ? styles.collapsed : null} prevent-select`}>
             {/* Menu icon */}
@@ -27,30 +43,12 @@ const Sidebar = () => {
 
             {/* Main navigation modules */}
             <section className={styles.navList}>
-                <Link to={'/'} className={styles.menuItem}>
-                    <img draggable="false" className={styles.icon} src={dashboardIcon}></img>
-                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Dashboard</span>
-                </Link>
-                <Link to={'/pomodoro'} className={styles.menuItem}>
-                    <img draggable="false" className={styles.icon} src={pomodoroIcon}></img>
-                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Pomodoro timer</span>
-                </Link>
-                <div className={styles.menuItem}>
-                    <img draggable="false" className={styles.icon} src={taskIcon}></img>
-                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Tasks</span>
-                </div>
-                <div className={styles.menuItem}>
-                    <img draggable="false" className={styles.icon} src={focusIcon}></img>
-                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Focus</span>
-                </div>
-                <div className={styles.menuItem}>
-                    <img draggable="false" className={styles.icon} src={calendarIcon}></img>
-                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>Schedule</span>
-                </div>
-                <div className={styles.menuItem}>
-                    <img draggable="false" className={styles.icon} src={uploadIcon}></img>
-                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>File transfer</span>
-                </div>
+                <BuildList lnk='/' icon={dashboardIcon} name="Dashboard"/>
+                <BuildList lnk='/pomodoro' icon={pomodoroIcon} name="Pomodoro timer"/>
+                <BuildList lnk="" icon={taskIcon} name="Tasks"/>
+                <BuildList lnk="" icon={focusIcon} name="Focus"/>
+                <BuildList lnk="" icon={calendarIcon} name="Schedule"/>
+                <BuildList lnk="" icon={uploadIcon} name="File transfer"/>
             </section>
             
             {/* Bottom */}

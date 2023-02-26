@@ -46,11 +46,9 @@ const Pomodoro = () => {
     )
 }
 
-class PomodoroWidget extends React.Component {
-    render() {
-        return (
-            <p>THIS IS WORKING!</p>
-        );
-    }
+function PomodoroWidget() {
+    return (
+        <p>THIS IS WORKING!</p>
+    );
 }
 export {Pomodoro, PomodoroWidget}

@@ -1,5 +1,9 @@
 import styles from './settings.module.css'
-import BackButton from '../components/backButton'
+import { BackButton } from '../modules'
+import { BrowserRouter, Route, Router } from 'react-router-dom'
+
+// Pages
+import { General } from './pages'
 
 const settings = () => {
     return(
@@ -17,6 +21,7 @@ const settings = () => {
             </nav>
             <div className={styles.prefPane}>
                 <p className={styles.section_header}>Preferences</p>
+                    {/* <Route index element={<General />}/> */}
                 <section id="general">
                     <table>
                         <tbody>
