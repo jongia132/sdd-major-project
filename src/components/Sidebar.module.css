@@ -6,7 +6,6 @@
 
 .sidebar {
     backdrop-filter: blur(20px) brightness(0.4) contrast(0.9);
-    /* border-radius: 0 25px 25px 0; */
     height: 100dvh;
     color: white;
     display:flex;
