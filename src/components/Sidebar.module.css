@@ -6,9 +6,8 @@
 
 .sidebar {
     backdrop-filter: blur(20px) brightness(0.4) contrast(0.9);
-    border-radius: 0 25px 25px 0;
+    /* border-radius: 0 25px 25px 0; */
     height: 100dvh;
-    float:left;
     color: white;
     display:flex;
     flex-direction: column;
@@ -54,14 +53,15 @@
     margin-left: 8px;
 }
 
-.hidden {
-    /* display: none; */
-}
+/* .hidden {
+    display: none;
+} */
 
 .menuIcon {
     padding: var(--icon-padding);
     border-radius: var(--rounded-radius);
-    width: var(--icon-size)
+    width: var(--icon-size);
+    margin-bottom: 1rem
 }
 
 .menuIcon:hover {

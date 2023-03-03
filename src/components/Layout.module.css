@@ -1,0 +1,7 @@
+.layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    background: var(--background-image, url("../assets/Background.png"));
+    background-size: cover;
+    background-position: center;
+}
