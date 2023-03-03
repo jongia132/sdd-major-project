@@ -37,11 +37,15 @@ const Pomodoro = () => {
 
     // Return app
     return (
-    <div>
-        <span>Pomodoro Timer</span>
-        <p className={styles.timer}></p>
-        <input type="number" min="1" max="99" id="length" className={styles.input} step="1"></input>
-        {/* <button type="submit" onClick={startTimer} id="start" className={styles.button} value="Start"></button> */}
+    <div className={styles.component}>
+        <h1>Pomodoro Timer</h1>
+        <div className={styles.timer}>
+            <input className={styles.input} type="number" min="0" max="9" step="1"/>
+            <p>:</p>
+            <input className={styles.input} type="number" min="0" max="59" step="5"/>
+        </div>
+        <progress value="10" max="60"/>
+        <button type="submit" id="start" className={styles.button} value="Start"></button>
     </div>
     )
 }

@@ -27,4 +27,5 @@
 .widget {
     margin: 10px;
     background: white;
+    border-radius: var(--rounded-radius);
 }

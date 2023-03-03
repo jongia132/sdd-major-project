@@ -1,18 +1,29 @@
 h1 {
-    font-size: 40pt;
+    font-size: var(--font-heading);
     text-align: center;
 }
 
 button {
-    height: 100vh;
-    width: 50vh;
+    
 }
 
 input {
-    font-size: 99pt;
+    font-size: var(--font-emphasis);
 }
 
 .timer {
-    font-size: 49pt;
+    font-size: var(--font-emphasis);
     text-align: center;
+    display: flex;
+    align-items: center;
+    padding: 10rem
+}
+
+.component {
+    background: #212121;
+    border-radius: var(--rounded-radius);
+    width: fit-content;
+    display: grid;
+    align-items: center;
+    color: white
 }
