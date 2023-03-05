@@ -7,11 +7,18 @@ button {
     margin-top: 4rem;
 }
 
-input {
-    font-size: var(--font-emphasis);
+input[type="number"] {
+    font-size: 2.5rem;
     background: inherit;
-    border: none;
-    color: inherit
+    border: 1px solid grey;
+    color: inherit;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .timer {
@@ -19,7 +26,7 @@ input {
     text-align: center;
     display: flex;
     align-items: center;
-    padding: 8rem
+    padding: 7rem
 }
 
 .back {

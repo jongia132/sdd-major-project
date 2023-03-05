@@ -1,10 +1,15 @@
 import styles from "./index.module.css"
 import { PomodoroWidget } from "./Pomodoro";
 const Index = () => {
+    let user = {
+        name: "Jonathan",
+        year: "12",
+        rollCall: "12RW"
+    }
     return (
         <div className={styles.html}>
             <main className={styles.content}>
-                <p className={styles.greeting}>Good morning, Jonathan.</p>
+                <p className={styles.greeting}>Good morning, {user.name}.</p>
             </main>
             <div className={styles.widgets}>
                 <div className={styles.widget}>

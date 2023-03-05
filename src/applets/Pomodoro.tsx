@@ -6,6 +6,8 @@ const Pomodoro = () => {
         secs: 0,
         count: 0
     };
+    let [button, btnState] = React.useState(true)
+    const timedisplay = React.useState(Timer)
 
     function startTimer(mins: number) {
         Time.mins = mins
@@ -14,27 +16,22 @@ const Pomodoro = () => {
         }
         btnState(!button)
         Time.count = mins*60
-        Timer()
+        setTimeout(Timer, 1000)
     }
 
     function Timer() {
-        let timer = setInterval( () => {
-            if (Time.count > 0) {
-                Time.count -= 1
-                Time.mins = Math.floor(Time.count/60)
-                Time.secs = Time.count % 60
-                console.table(Time)
-                return <span>{Time.mins}:{Time.secs}</span>;
-            }
-            stopTimer()
-        }, 1000)
+        if (Time.count > 0) {
+            Time.count -= 1
+            Time.mins = Math.floor(Time.count/60)
+            Time.secs = Time.count % 60
+            console.table(Time)
+        }
+        stopTimer()
     }
 
     // Start/stop button
-    let [button, btnState] = React.useState(true)
     function stopTimer() {
         btnState(!button)
-        clearInterval(timer)
     }
     function ToggleButton() {
         if (button) {
@@ -54,7 +51,6 @@ const Pomodoro = () => {
             <section className={styles.digits}>
                 <input className={styles.input} type="number" min="0" max="9" step="1"/>
                 <p>:</p>
-                <Timer />
                 <input className={styles.input} type="number" min="0" max="59" step="5"/>
             </section>
             <ToggleButton/>

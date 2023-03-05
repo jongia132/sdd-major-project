@@ -5,7 +5,7 @@
 }
 
 .greeting {
-    font-size: 30pt;
+    font-size: var(--font-title);
     font-weight: bold;
     text-shadow: 0 0 8px rgba(0, 0, 0, 0.326);
 }
@@ -21,4 +21,6 @@
     margin: 10px;
     background: white;
     border-radius: var(--rounded-radius);
+    display:inline;
+    padding: 1rem
 }
