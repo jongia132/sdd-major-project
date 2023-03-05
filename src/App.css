@@ -21,7 +21,7 @@ button {
   --background-image: url('./assets/Yum.jpg');
 
   /* Design System */
-  --rounded-radius: 5px;
+  --rounded-radius: 3px;
   --font-regular: 1rem;
   --font-emphasis: 1.5rem;
   --font-heading: 1.9rem;

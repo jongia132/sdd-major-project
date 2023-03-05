@@ -45,7 +45,7 @@ const Sidebar = () => {
             <section className={styles.navList}>
                 <BuildList lnk='/' icon={dashboardIcon} name="Dashboard"/>
                 <BuildList lnk='/pomodoro' icon={pomodoroIcon} name="Pomodoro timer"/>
-                <BuildList lnk="" icon={taskIcon} name="Tasks"/>
+                <BuildList lnk="/tasks" icon={taskIcon} name="Tasks"/>
                 <BuildList lnk="" icon={focusIcon} name="Focus"/>
                 <BuildList lnk="" icon={calendarIcon} name="Schedule"/>
                 <BuildList lnk="" icon={uploadIcon} name="File transfer"/>
