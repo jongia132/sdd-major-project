@@ -6,49 +6,62 @@ const Pomodoro = () => {
         secs: 0,
         count: 0
     };
+    let [button, btnState] = React.useState(true)
+    const timedisplay = React.useState(Timer)
 
-    // function startTimer(mins: number) {
-    //     setTime(mins)
-    //         if (Time.mins < 1 || Time.mins > 99) {
-    //         return alert("Invalid value")
-    //     }
-    //     document.getElementById("start").setAttribute('disabled', true)
-    //     let timer = setInterval(function() {
-    //         if (Time.count < 1) {
-    //             document.getElementById("timer").innerText = "lol"
-    //             clearInterval(timer)
-    //             alert("Done!")
-    //         }
-    //         else {
-    //             Time.count -= 1
-    //             Time.mins = Math.floor(Time.count/60)
-    //             Time.secs = Time.count % 60
-    //             console.table(Time)
-    //             return <span>{Time.mins}:{Time.secs}</span>;
-    //         }
-    //     }, 1000)
-    // }
-
-    // Timer components
-    function setTime(mins: number) {
+    function startTimer(mins: number) {
         Time.mins = mins
+        if (Time.mins < 1 || Time.mins > 99) {
+            return alert("Invalid value")
+        }
+        btnState(!button)
         Time.count = mins*60
+        setTimeout(Timer, 1000)
+    }
+
+    function Timer() {
+        if (Time.count > 0) {
+            Time.count -= 1
+            Time.mins = Math.floor(Time.count/60)
+            Time.secs = Time.count % 60
+            console.table(Time)
+        }
+        stopTimer()
+    }
+
+    // Start/stop button
+    function stopTimer() {
+        btnState(!button)
+    }
+    function ToggleButton() {
+        if (button) {
+            return <button id="start" className={styles.button} onClick={stopTimer}>START</button>
+        }
+        else {
+            return <button id="stop" className={styles.button} onClick={stopTimer}>STOP</button>
+        }
     }
 
     // Return app
     return (
-    <div>
-        <span>Pomodoro Timer</span>
-        <p className={styles.timer}></p>
-        <input type="number" min="1" max="99" id="length" className={styles.input} step="1"></input>
-        {/* <button type="submit" onClick={startTimer} id="start" className={styles.button} value="Start"></button> */}
+    <div className={styles.back}>
+        <h1>Pomodoro Timer</h1>
+        <div className={styles.timer}>
+            <progress value="0" max="60"/>
+            <section className={styles.digits}>
+                <input className={styles.input} type="number" min="0" max="9" step="1"/>
+                <p>:</p>
+                <input className={styles.input} type="number" min="0" max="59" step="5"/>
+            </section>
+            <ToggleButton/>
+        </div>
     </div>
     )
 }
 
 function PomodoroWidget() {
     return (
-        <p>THIS IS WORKING!</p>
+        <p>Widget loaded</p>
     );
 }
 export {Pomodoro, PomodoroWidget}

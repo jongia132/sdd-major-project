@@ -7,6 +7,14 @@
   user-select: none; /* Standard syntax */
 }
 
+button {
+  border: none;
+  border-radius: var(--rounded-radius);
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
 /* Variables */
 :root {
   /* Personalisation */
@@ -16,5 +24,6 @@
   --rounded-radius: 5px;
   --font-regular: 1rem;
   --font-emphasis: 1.5rem;
-  --font-heading: 1.9rem
+  --font-heading: 1.9rem;
+  --font-title: 2.2rem
 }

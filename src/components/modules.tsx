@@ -13,10 +13,4 @@ const BackButton = () => {
     )
 }
 
-const primaryButton = (type: number, msg: string) => {
-    return(
-        <button>Testing</button>
-    )
-}
-
-export {BackButton, primaryButton} 
+export {BackButton} 
