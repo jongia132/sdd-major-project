@@ -4,6 +4,7 @@ import Index from "./applets/index"
 import { Pomodoro } from './applets/Pomodoro'
 import Settings from "./components/settings/settings"
 import Layout from './components/Layout'
+import { Tasks } from "./applets/Tasks"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<Index />} />
             <Route path='/pomodoro' element={<Pomodoro />}/>
+            <Route path='/tasks' element={<Tasks />} />
           </Route>
           <Route path='/settings' element={<Settings />}/>
         </Routes>
