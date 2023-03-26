@@ -7,7 +7,7 @@ const Index = () => {
         rollCall: "12RW"
     }
     return (
-        <div className={styles.html}>
+        <div>
             <main className={styles.content}>
                 <p className={styles.greeting}>Good morning, {user.name}.</p>
             </main>
