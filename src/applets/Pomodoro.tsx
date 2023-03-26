@@ -61,7 +61,7 @@ const Pomodoro = () => {
 
 function PomodoroWidget() {
     return (
-        <p>Widget loaded</p>
+        <p style={{color: "black"}}>Pomodoro widget loaded</p>
     );
 }
 export {Pomodoro, PomodoroWidget}

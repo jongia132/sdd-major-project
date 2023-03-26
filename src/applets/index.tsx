@@ -1,5 +1,6 @@
 import styles from "./index.module.css"
 import { PomodoroWidget } from "./Pomodoro";
+import { TasksWidget } from "./Tasks";
 const Index = () => {
     let user = {
         name: "Jonathan",
@@ -7,16 +8,17 @@ const Index = () => {
         rollCall: "12RW"
     }
     return (
-        <div>
-            <main className={styles.content}>
-                <p className={styles.greeting}>Good morning, {user.name}.</p>
+        <div className={`${styles.layout} ${"content"}`}>
+            <main>
+                <h1>Good morning, {user.name}.</h1>
+                <p>THis is a test</p>
             </main>
             <div className={styles.widgets}>
                 <div className={styles.widget}>
                     <PomodoroWidget/>
                 </div>
                 <div className={styles.widget}>
-                    <PomodoroWidget/>
+                    <TasksWidget/>
                 </div>
             </div>
         </div>

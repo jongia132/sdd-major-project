@@ -8,7 +8,6 @@ import { Tasks } from "./applets/Tasks"
 
 function App() {
   return (
-    <div>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
@@ -19,7 +18,6 @@ function App() {
           <Route path='/settings' element={<Settings />}/>
         </Routes>
       </BrowserRouter>
-    </div>
   );
 }
 export default App;
