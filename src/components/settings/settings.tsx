@@ -1,7 +1,7 @@
 import styles from './settings.module.css'
 import { BackButton } from '../modules'
 import { BrowserRouter, Route, Router } from 'react-router-dom'
-
+import { Button } from '@fluentui/react-components'
 // Pages
 import { General } from './pages'
 
@@ -9,6 +9,7 @@ const settings = () => {
     return(
         <div className={`${styles.html} prevent-select`}>
             <nav className={styles.settingsMenu}>
+                <Button appearance='primary'>LMAO</Button>
                 <BackButton/>
                 <p className={styles.section_header}>Settings</p>
                 <ul>
@@ -19,7 +20,7 @@ const settings = () => {
                     <li>About</li>
                 </ul>
             </nav>
-            <div className={styles.prefPane}>
+            <div className={`${styles.prefPane} ${"content"}`}>
                 <p className={styles.section_header}>Preferences</p>
                     {/* <Route index element={<General />}/> */}
                 <section id="general">

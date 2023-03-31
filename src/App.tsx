@@ -5,9 +5,11 @@ import { Pomodoro } from './applets/Pomodoro'
 import Settings from "./components/settings/settings"
 import Layout from './components/Layout'
 import { Tasks } from "./applets/Tasks"
+import { FluentProvider, webDarkTheme, webLightTheme } from '@fluentui/react-components'
 
 function App() {
   return (
+    <FluentProvider theme={webDarkTheme}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
@@ -18,6 +20,7 @@ function App() {
           <Route path='/settings' element={<Settings />}/>
         </Routes>
       </BrowserRouter>
+    </FluentProvider>
   );
 }
 export default App;
