@@ -22,7 +22,7 @@ const Sidebar = () => {
     }
     function BuildList({ lnk, icon, name }: listformat) {
         return (
-            <Tooltip content={name} relationship='label' positioning="after">
+            <Tooltip content={name} relationship='label' visible={state ? undefined : false} positioning="after">
                 <Link to={lnk} className={styles.menuItem}>
                     <img draggable="false" className={styles.icon} src={icon}></img>
                     <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>{name}</span>
@@ -54,9 +54,11 @@ const Sidebar = () => {
                 <BuildList lnk="" icon={uploadIcon} name="File transfer" />
             </section>
             {/* Bottom */}
-            <Link to={'/settings'} className={styles.bottom}>
-                <img draggable="false" className={styles.icon} src={settingsIcon}></img>
-            </Link>
+            <Tooltip content="Settings" relationship='label' positioning="after">
+                <Link to={'/settings'} className={styles.bottom}>
+                    <img draggable="false" className={styles.icon} src={settingsIcon}></img>
+                </Link>
+            </Tooltip>
         </nav>
     )
 }

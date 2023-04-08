@@ -9,7 +9,6 @@ const settings = () => {
     return(
         <div className={`${styles.html} prevent-select`}>
             <nav className={styles.settingsMenu}>
-                <Button appearance='primary'>LMAO</Button>
                 <BackButton/>
                 <p className={styles.section_header}>Settings</p>
                 <ul>
