@@ -5,7 +5,7 @@
   "main": "public/electron.ts",
   "homepage": "./",
   "dependencies": {
-    "@fluentui/react-components": "^9.18.6",
+    "@fluentui/react-components": "^9.18.8",
     "idb": "^7.1.1",
     "react": "^18.2.0",
     "react-app-polyfill": "^3.0.0",

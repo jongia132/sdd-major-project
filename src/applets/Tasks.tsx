@@ -2,6 +2,13 @@ import styles from "./Tasks.module.css"
 import { Toolbar, ToolbarButton, ProgressBar, DataGrid, DataGridHeader } from "@fluentui/react-components"
 import { openDB } from 'idb'
 const Tasks = () => {
+    let dataStore = indexedDB.open("Tasks")
+    dataStore.onupgradeneeded = e => {
+        console.log("upgraded")
+    }
+    dataStore.onsuccess = e => {
+        console.log("already created")
+    }
     function TaskTable() {
         return(null)
     }

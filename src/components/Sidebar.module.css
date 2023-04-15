@@ -13,8 +13,8 @@
     padding: 10px;
     width: 220px;
     box-sizing: border-box;
-    transition: ease-out;
-    transition-duration: 150ms;
+    transition: ease;
+    transition-duration: 300ms;
 }
 
 .collapsed {
@@ -35,7 +35,8 @@
     border-radius: var(--rounded-radius);
     margin-top: 5px;
     text-decoration: none;
-    padding: var(--icon-padding)
+    padding: var(--icon-padding);
+    overflow-x: hidden;
 }
 
 .menuItem:hover {
@@ -53,7 +54,7 @@
 }
 
 .hidden {
-    display: none;
+    /* display: none; */
 }
 
 .menuIcon {
