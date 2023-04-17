@@ -1,3 +1,4 @@
 .container  {
-    color: white
+    background: var(--dark-bg);
+    border-radius: var(--rounded-radius);
 }

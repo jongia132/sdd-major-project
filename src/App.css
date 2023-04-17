@@ -31,6 +31,7 @@ a {
 .content {
   margin: 3dvw;
   color: white;
+  padding: 1dvw
 }
 
 .prevent-select {
@@ -56,5 +57,9 @@ button {
   --font-regular: 1rem;
   --font-emphasis: 1.5rem;
   --font-heading: 1.9rem;
-  --font-title: 2.2rem
+  --font-title: 2.2rem;
+
+  /* Colour system */
+  --dark-bg: #1f1f1f;
+  --light-bg: #fafafa
 }
