@@ -1,23 +1,42 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "command": "yarn start",
-        "name": "Run yarn start",
-        "request": "launch",
-        "type": "node-terminal"
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "command": "yarn start",
+      "name": "Run yarn start",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
+      "name": "Electron: Renderer Process",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9223,
+      "webRoot": "${workspaceFolder}",
+      "timeout": 30000
+    },
+    {
+      "name": "Debug Main Process",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "windows": {
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
       },
-      {
-        "name": "Debug Main Process",
-        "type": "node",
-        "request": "launch",
-        "cwd": "${workspaceFolder}",
-        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
-        "windows": {
-          "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
-        },
-        "args" : ["."],
-        "outputCapture": "std"
-      }
-    ]
-  }
+      "args": [
+        "."
+      ],
+      "outputCapture": "std"
+    }
+  ],
+  "compounds": [
+    {
+        "name": "Electron: All",
+        "configurations": [
+            "Run yarn start",
+            "Electron: Renderer Process"
+        ]
+    }
+]
+}

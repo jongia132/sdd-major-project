@@ -44,7 +44,7 @@ const Pomodoro = () => {
 
     // Return app
     return (
-    <div className={styles.back}>
+    <div className={styles.root}>
         <h1>Pomodoro Timer</h1>
         <div className={styles.timer}>
             <progress value="0" max="60"/>

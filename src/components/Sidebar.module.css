@@ -4,7 +4,7 @@
     --icon-size: 26px
 }
 
-.sidebar {
+.root {
     backdrop-filter: blur(15px) brightness(0.5);
     height: 100dvh;
     color: white;
@@ -42,6 +42,7 @@
 .menuItem:hover {
     background: var(--hover);
     box-shadow: 0 0 5px 0px rgb(14 14 14 / 56%);
+    
 }
 
 .icon {

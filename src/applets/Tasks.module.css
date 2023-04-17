@@ -1,4 +1,23 @@
-.container  {
+.root  {
     background: var(--dark-bg);
     border-radius: var(--rounded-radius);
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 3rem;
+    padding-top: 1rem;
+}
+
+.test > span{
+    background: rgba(255, 255, 255, 0.36);
+    border-radius: var(--rounded-radius);
+    padding: 1rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.toolbar {
+    margin-bottom: 1rem;
 }

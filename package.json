@@ -6,7 +6,6 @@
   "homepage": "./",
   "dependencies": {
     "@fluentui/react-components": "^9.18.8",
-    "idb": "^7.1.1",
     "react": "^18.2.0",
     "react-app-polyfill": "^3.0.0",
     "react-dom": "^18.2.0",
@@ -14,7 +13,7 @@
     "react-router-dom": "^6.9.0"
   },
   "scripts": {
-    "start": "concurrently -k \"vite\" \"electron .\"",
+    "start": "concurrently -k \"vite\" \"electron . --remote-debugging-port=9223\"",
     "build": "vite build"
   },
   "devDependencies": {

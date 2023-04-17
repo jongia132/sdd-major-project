@@ -32,9 +32,14 @@ const Sidebar = () => {
     }
 
     // Toggle sidebar state
-    let [state, setHidden] = React.useState(false)
+    let [state, setHidden] = React.useState(() => {
+        return JSON.parse(localStorage.getItem("sidebarState")) ?? false
+    })
+    React.useEffect(() => {
+        localStorage.setItem("sidebarState", JSON.stringify(state))
+    }, [state])
     return (
-        <nav className={`${styles.sidebar} ${state ? styles.collapsed : null} prevent-select`}>
+        <nav className={`${styles.root} ${state ? styles.collapsed : null} prevent-select`}>
             {/* Menu icon */}
             <img className={`${styles.menuIcon} ${styles.icon}`} src={menuIcon} onClick={() => setHidden(!state)} draggable="false"></img>
 
