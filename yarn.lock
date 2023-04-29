@@ -3128,6 +3128,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"idb@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "idb@npm:7.1.1"
+  checksum: 1973c28d53c784b177bdef9f527ec89ec239ec7cf5fcbd987dae75a16c03f5b7dfcc8c6d3285716fd0309dd57739805390bd9f98ce23b1b7d8849a3b52de8d56
+  languageName: node
+  linkType: hard
+
 "ignore@npm:^5.2.0":
   version: 5.2.4
   resolution: "ignore@npm:5.2.4"
@@ -4412,6 +4419,7 @@ __metadata:
     concurrently: ^7.6.0
     electron: 22.3.4
     eslint: ^8.36.0
+    idb: ^7.1.1
     react: ^18.2.0
     react-app-polyfill: ^3.0.0
     react-dom: ^18.2.0

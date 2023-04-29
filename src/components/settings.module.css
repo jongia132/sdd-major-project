@@ -1,7 +1,7 @@
 .html {
-    background:#171717;
+    background: #171717;
     color: white;
-    display:grid;
+    display: grid;
     grid-template-columns: auto 1fr
 }
 
@@ -10,35 +10,35 @@
     background: #272727;
     padding: 2em;
     float: left;
-    height:100dvh;
+    height: 100dvh;
     box-sizing: border-box;
     overflow-y: auto;
 }
 
-.settingsMenu > ul {
+.settingsMenu>ul {
     padding: 0
 }
 
-.settingsMenu > ul > li {
+.settingsMenu>ul>li {
     list-style: none;
     box-sizing: border-box;
     border-radius: var(--rounded-radius);
     margin-top: 1rem;
     padding: 0.6em 1em;
     background: #4D4D4D;
-    display:grid;
+    display: grid;
     align-items: center;
     font-size: var(--font-regular);
 }
 
 .prefPane {
-    display:grid;
+    /* display:grid; */
 }
 
 .section_header {
     font-size: var(--font-heading);
     font-weight: bold;
-    margin:0;
+    margin-top: 0;
     padding-top: 1em
 }
 

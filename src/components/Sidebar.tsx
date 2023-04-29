@@ -33,10 +33,10 @@ const Sidebar = () => {
 
     // Toggle sidebar state
     let [state, setHidden] = React.useState(() => {
-        return JSON.parse(localStorage.getItem("sidebarState")) ?? false
+        return JSON.parse(localStorage.getItem("Sidebar.state")) ?? false
     })
     React.useEffect(() => {
-        localStorage.setItem("sidebarState", JSON.stringify(state))
+        localStorage.setItem("Sidebar.state", JSON.stringify(state))
     }, [state])
     return (
         <nav className={`${styles.root} ${state ? styles.collapsed : null} prevent-select`}>
