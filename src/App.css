@@ -31,9 +31,9 @@ a {
 .content {
   margin: 2dvw;
   color: white;
-  padding: 1dvw;
+  padding: var(--spacingHorizontalXL);
   overflow-y: auto;
-  border-radius: var(--rounded-radius);
+  border-radius: var(--borderRadiusLarge);
 }
 
 .prevent-select {
@@ -43,7 +43,7 @@ a {
 
 button {
   border: none;
-  border-radius: var(--rounded-radius);
+  border-radius: var(--borderRadiusLarge);
   padding: 0.5rem;
   font-size: 1.1rem;
   font-weight: 600;
@@ -55,7 +55,6 @@ button {
   --background-image: url('./assets/Yum.jpg');
 
   /* Design System */
-  --rounded-radius: 3px;
   --font-regular: 1rem;
   --font-emphasis: 1.5rem;
   --font-heading: 1.9rem;

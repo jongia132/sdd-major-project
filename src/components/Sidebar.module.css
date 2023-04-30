@@ -15,7 +15,6 @@
     box-sizing: border-box;
     transition: ease;
     transition-duration: 300ms;
-    overflow-y: auto;
 }
 
 .collapsed {
@@ -33,7 +32,7 @@
     flex-direction: row;
     align-items: center;
     font-size: var(--font-regular);
-    border-radius: var(--rounded-radius);
+    border-radius: var(--borderRadiusLarge);
     margin-top: 5px;
     text-decoration: none;
     padding: var(--icon-padding);
@@ -42,7 +41,7 @@
 
 .menuItem:hover {
     background: var(--hover);
-    box-shadow: 0 0 5px 0px rgb(14 14 14 / 56%);
+    box-shadow: var(--shadow4);
     
 }
 
@@ -55,13 +54,9 @@
     margin-left: 8px;
 }
 
-.hidden {
-    /* display: none; */
-}
-
 .menuIcon {
     padding: var(--icon-padding);
-    border-radius: var(--rounded-radius);
+    border-radius: var(--borderRadiusLarge);
     width: var(--icon-size);
     margin-bottom: 1rem
 }
@@ -78,7 +73,7 @@
     margin-top:auto;
     width: fit-content;
     height: var(--icon-size);
-    border-radius: var(--rounded-radius);
+    border-radius: var(--borderRadiusLarge);
     padding: var(--icon-padding)
 }
 
