@@ -2,6 +2,7 @@ import styles from './settings.module.css'
 import { BackButton } from './modules'
 import { Button, SelectTabData, SelectTabEvent, Tab, TabList, TabValue } from '@fluentui/react-components'
 import React from 'react'
+import { Link } from 'react-router-dom'
 // Pages
 const settings = () => {
     const [selectedValue, setSelectedValue] = React.useState<TabValue>("general")

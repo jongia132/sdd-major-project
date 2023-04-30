@@ -29,9 +29,11 @@ a {
 }
 
 .content {
-  margin: 3dvw;
+  margin: 2dvw;
   color: white;
-  padding: 1dvw
+  padding: 1dvw;
+  overflow-y: auto;
+  border-radius: var(--rounded-radius);
 }
 
 .prevent-select {

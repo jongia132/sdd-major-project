@@ -10,16 +10,14 @@ import { FluentProvider, webDarkTheme, webLightTheme } from '@fluentui/react-com
 function App() {
   return (
     <FluentProvider theme={webDarkTheme}>
-      <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Index />} />
-            <Route path='/pomodoro' element={<Pomodoro />}/>
+            <Route path='/pomodoro' element={<Pomodoro />} />
             <Route path='/tasks' element={<Tasks />} />
-            <Route path='/settings' element={<Settings />}/>
           </Route>
+          <Route path='/settings' element={<Settings />} />
         </Routes>
-      </BrowserRouter>
     </FluentProvider>
   );
 }
