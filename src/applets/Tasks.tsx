@@ -1,10 +1,10 @@
 import styles from "./Tasks.module.css"
 import { Toolbar, ToolbarButton, ProgressBar, DataGrid, DataGridHeader, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button } from "@fluentui/react-components"
 import { InfoButton } from '@fluentui/react-components/unstable';
-import { openDB, deleteDB, DBSchema } from "idb"
+import { openDB, deleteDB, DBSchema, IDBPDatabase } from "idb"
 import React from "react"
 // Avoid type errors
-interface dbTypes extends DBSchema {
+interface dbTypes {
     name: {
         key: number
         value: string
@@ -12,20 +12,36 @@ interface dbTypes extends DBSchema {
     group: {
         key: string
         value: number
-    }
+    },
+    date: string,
+    description: string
 }
 
 // Create or verify existance of database
-const db = openDB("Tasks", 1, {
-    upgrade(db) {
-        db.createObjectStore("default")
-    }
-})
+async function database(): Promise<IDBPDatabase> {
+    const db = await openDB("Tasks", 1, {
+        upgrade(db) {
+            db.createObjectStore("default", {
+                keyPath: 'uid',
+                autoIncrement: true
+            })
+        }
+    })
+    return db
+}
 async function updateTask() { }
 
-async function addTask(name: string, date: Date, group: number, description: string) {
-    await console.log("LOL")
+async function addTask() {
+    const db = await database()
+    db.add("default", {
+        name: "idiawjd",
+        description: "djwaod",
+        group: "dwaodj",
+        date: "dwaod"
+    });
 }
+        
+
 
 async function deleteTask() { }
 
@@ -51,7 +67,7 @@ const Tasks = () => {
                 <DialogTrigger disableButtonEnhancement>
                     <ToolbarButton appearance="primary">Add task</ToolbarButton>
                 </DialogTrigger>
-                <DialogSurface onSubmit={addTask("lol", new Date(), 1, "LOL")}>
+                <DialogSurface onSubmit={addTask()}>
                     <form onSubmit={e => e.preventDefault()}>
                         <DialogBody>
                             <DialogTitle>Add Task</DialogTitle>
@@ -81,6 +97,7 @@ const Tasks = () => {
                 <AddTaskWindow />
                 <ToolbarButton appearance="primary">Delete</ToolbarButton>
                 <ToolbarButton appearance="subtle" onClick={resetDatabase}>DEBUG ONLY: Reset database</ToolbarButton>
+                <ToolbarButton appearance="subtle" onClick={addTask}>DEBUG ONLY: Add test ask</ToolbarButton>
                 <InfoButton info={<>Welcome to help!</>}></InfoButton>
             </Toolbar>
             <Divider appearance="strong" inset />
