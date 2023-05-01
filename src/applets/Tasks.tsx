@@ -1,8 +1,8 @@
 import styles from "./Tasks.module.css"
-import { Toolbar, ToolbarButton, ProgressBar, DataGrid, DataGridHeader, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button } from "@fluentui/react-components"
-import { InfoButton } from '@fluentui/react-components/unstable';
+import { Toolbar, ToolbarButton, DataGrid, DataGridHeader, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, Combobox, ComboboxProps, ToolbarGroup, ToolbarDivider } from "@fluentui/react-components"
+import { Alert, InfoButton } from '@fluentui/react-components/unstable';
 import { openDB, deleteDB, DBSchema, IDBPDatabase } from "idb"
-import React from "react"
+import React, { FormEvent, FormEventHandler } from "react"
 // Avoid type errors
 interface dbTypes {
     name: {
@@ -31,28 +31,63 @@ async function database(): Promise<IDBPDatabase> {
 }
 async function updateTask() { }
 
-async function addTask() {
+async function addTask(e: { preventDefault: () => void; target: HTMLFormElement | undefined; }) {
+    e.preventDefault()
+    const ee = e.target
+    const input = Object.fromEntries(new FormData(e.target).entries())
     const db = await database()
     db.add("default", {
-        name: "idiawjd",
-        description: "djwaod",
-        group: "dwaodj",
-        date: "dwaod"
+        name: input.name,
+        description: input.description ?? null,
+        group: 1,
+        date: new Date()
     });
+    return
 }
-        
+
 
 
 async function deleteTask() { }
 
-async function resetDatabase() {
-    await deleteDB("Tasks", {
-        blocked() { alert("There are open connections preventing this action.") }
-    })
-    alert("Database deleted")
+function ResetDB() {
+    const [load, setLoad] = React.useState(false)
+    const [status, setStatus] = React.useState(false)
+    async function resetDatabase() {
+        await deleteDB("Tasks", {
+            blocked() {
+                setLoad(true);
+            }
+        })
+        setLoad(false)
+        setStatus(true)
+        return
+    }
+    return (
+        <Dialog modalType="alert">
+            <DialogTrigger>
+                <ToolbarButton appearance="subtle">DEBUG ONLY: Reset database</ToolbarButton>
+            </DialogTrigger>
+            <DialogSurface>
+                <DialogBody>
+                    <DialogTitle>RESET DATABASE</DialogTitle>
+                    {load ? <Alert intent="warning">Waiting for open connections preventing this action. <Spinner></Spinner></Alert> : undefined}
+                    {status ? <Alert intent="success">Reset successful.</Alert> : undefined }
+                    <DialogContent>
+                        Are you sure you want to reset the default database?
+                    </DialogContent>
+                    <DialogActions>
+                        <DialogTrigger>
+                            <Button appearance="primary" onClick={() => setStatus(false)} disabled={load}>Cancel</Button>
+                        </DialogTrigger>
+                        <Button appearance="secondary" onClick={resetDatabase} disabled={load}>RESET</Button>
+                    </DialogActions>
+                </DialogBody>
+            </DialogSurface>
+        </Dialog>
+    )
 }
 
-const Tasks = () => {
+const Tasks = (props: Partial<ComboboxProps>) => {
     // Intial setup
     const [selectedValue, setSelectedValue] = React.useState<TabValue>(localStorage.getItem("tasks.lastSelected"))
 
@@ -67,16 +102,17 @@ const Tasks = () => {
                 <DialogTrigger disableButtonEnhancement>
                     <ToolbarButton appearance="primary">Add task</ToolbarButton>
                 </DialogTrigger>
-                <DialogSurface onSubmit={addTask()}>
-                    <form onSubmit={e => e.preventDefault()}>
+                <DialogSurface>
+                    <form method="post" onSubmit={addTask}>
                         <DialogBody>
                             <DialogTitle>Add Task</DialogTitle>
                         </DialogBody>
                         <DialogContent>
                             <Label required>Name</Label>
-                            <Input required></Input>
+                            <Input required name="name"></Input>
                             <Label>Description</Label>
-                            <Input></Input>
+                            <Input name="description"></Input>
+                            <Label>Group</Label>
                         </DialogContent>
                         <DialogActions position="end">
                             <DialogTrigger>
@@ -96,8 +132,8 @@ const Tasks = () => {
             <Toolbar className={styles.toolbar} size="small">
                 <AddTaskWindow />
                 <ToolbarButton appearance="primary">Delete</ToolbarButton>
-                <ToolbarButton appearance="subtle" onClick={resetDatabase}>DEBUG ONLY: Reset database</ToolbarButton>
-                <ToolbarButton appearance="subtle" onClick={addTask}>DEBUG ONLY: Add test ask</ToolbarButton>
+                <ToolbarDivider />
+                <ResetDB />
                 <InfoButton info={<>Welcome to help!</>}></InfoButton>
             </Toolbar>
             <Divider appearance="strong" inset />

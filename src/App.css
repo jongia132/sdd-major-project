@@ -29,11 +29,10 @@ a {
 }
 
 .content {
-  margin: 2dvw;
+  padding: 2dvw;
   color: white;
-  padding: var(--spacingHorizontalXL);
   overflow-y: auto;
-  border-radius: var(--borderRadiusLarge);
+  /* border-radius: var(--borderRadiusLarge); */
 }
 
 .prevent-select {

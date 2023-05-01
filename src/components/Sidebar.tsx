@@ -25,7 +25,8 @@ const Sidebar = () => {
             <Tooltip content={name} relationship='label' visible={state ? undefined : false} positioning="after">
                 <Link to={lnk} className={styles.menuItem}>
                     <img draggable="false" className={styles.icon} src={icon}></img>
-                    <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>{name}</span>
+                    <span className={`${styles.navEntry}`}>{name}</span>
+                    {/* hidden={state ? true : undefined} */}
                 </Link>
             </Tooltip>
         )
