@@ -2,8 +2,9 @@ import styles from "./Tasks.module.css"
 import { Toolbar, ToolbarButton, DataGrid, DataGridHeader, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, Combobox, ComboboxProps, ToolbarGroup, ToolbarDivider } from "@fluentui/react-components"
 import { Alert, InfoButton } from '@fluentui/react-components/unstable';
 import { DatePicker } from "@fluentui/react-datepicker-compat";
-import { openDB, deleteDB , IDBPDatabase } from "idb"
-import React from "react"
+import { openDB, deleteDB, IDBPDatabase } from "idb"
+import React, { FormEventHandler } from "react"
+import { defer } from "react-router-dom";
 // Avoid type errors
 interface dbTypes {
     name: {
@@ -32,9 +33,9 @@ async function database(): Promise<IDBPDatabase> {
 }
 async function updateTask() { }
 
-async function addTask(e: { preventDefault: () => void; target: HTMLFormElement | undefined; }) {
-    e.preventDefault()
-    const input = Object.fromEntries(new FormData(e.target).entries())
+async function addTask(event: Event, target: HTMLFormElement) {
+    event.preventDefault()
+    const input = Object.fromEntries(new FormData(target).entries())
     const db = await database()
     db.add("default", {
         name: input.name,
@@ -69,7 +70,7 @@ function ResetDB() {
                 <DialogBody>
                     <DialogTitle>RESET DATABASE</DialogTitle>
                     {load ? <Alert intent="warning">Waiting for open connections preventing this action. <Spinner></Spinner></Alert> : undefined}
-                    {status ? <Alert intent="success">Reset successful.</Alert> : undefined }
+                    {status ? <Alert intent="success">Reset successful.</Alert> : undefined}
                     <DialogContent>
                         Are you sure you want to reset the default database?
                     </DialogContent>
@@ -89,11 +90,26 @@ const Tasks = (props: Partial<ComboboxProps>) => {
     // Intial setup
     const [selectedValue, setSelectedValue] = React.useState<TabValue>(localStorage.getItem("tasks.lastSelected"))
 
-    function onTabSelect(e: SelectTabEvent, data: SelectTabData) {
-        setSelectedValue(data.value)
-        localStorage.setItem("tasks.lastSelected", data.value)
+    async function onTabSelect(event: SelectTabEvent, data: SelectTabData ) {
+        const value = data.value as string
+        setSelectedValue(value)
+        // await loadTasks(value)
+        localStorage.setItem("tasks.lastSelected", value)
     }
 
+    async function loadTasks(objectStore: string) {
+        const db = await (await database()).getAll(objectStore)
+        for (const cursor of db) {
+            return <div>{cursor.name}</div>
+        }
+    }
+
+    function ReadTable() {
+        let lol = JSON.parse(loadTasks)
+        return(
+            <p aria-label={lol}></p>
+        )
+    }
     function AddTaskWindow() {
         return (
             <Dialog modalType="modal">
@@ -101,7 +117,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                     <ToolbarButton appearance="primary">Add task</ToolbarButton>
                 </DialogTrigger>
                 <DialogSurface>
-                    <form method="post" onSubmit={addTask}>
+                    <form method="post" onSubmit={() => addTask}>
                         <DialogBody>
                             <DialogTitle>Add Task</DialogTitle>
                         </DialogBody>
@@ -146,7 +162,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                     <span>LMAO</span>
                     <span>LOL</span>
                 </div>
-                {/* <ReadTable /> */}
+                <ReadTable />
             </div>
         </div>
     )
