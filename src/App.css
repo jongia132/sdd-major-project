@@ -52,6 +52,7 @@ button {
 :root {
   /* Personalisation */
   --background-image: url('./assets/Yum.jpg');
+  color-scheme: dark;
 
   /* Design System */
   --font-regular: 1rem;

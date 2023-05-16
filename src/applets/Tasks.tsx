@@ -1,8 +1,9 @@
 import styles from "./Tasks.module.css"
 import { Toolbar, ToolbarButton, DataGrid, DataGridHeader, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, Combobox, ComboboxProps, ToolbarGroup, ToolbarDivider } from "@fluentui/react-components"
 import { Alert, InfoButton } from '@fluentui/react-components/unstable';
-import { openDB, deleteDB, DBSchema, IDBPDatabase } from "idb"
-import React, { FormEvent, FormEventHandler } from "react"
+import { DatePicker } from "@fluentui/react-datepicker-compat";
+import { openDB, deleteDB , IDBPDatabase } from "idb"
+import React from "react"
 // Avoid type errors
 interface dbTypes {
     name: {
@@ -33,19 +34,16 @@ async function updateTask() { }
 
 async function addTask(e: { preventDefault: () => void; target: HTMLFormElement | undefined; }) {
     e.preventDefault()
-    const ee = e.target
     const input = Object.fromEntries(new FormData(e.target).entries())
     const db = await database()
     db.add("default", {
         name: input.name,
         description: input.description ?? null,
         group: 1,
-        date: new Date()
+        date: input.date ?? new Date()
     });
     return
 }
-
-
 
 async function deleteTask() { }
 
@@ -65,7 +63,7 @@ function ResetDB() {
     return (
         <Dialog modalType="alert">
             <DialogTrigger>
-                <ToolbarButton appearance="subtle">DEBUG ONLY: Reset database</ToolbarButton>
+                <ToolbarButton appearance="subtle">DEBUG: Reset database</ToolbarButton>
             </DialogTrigger>
             <DialogSurface>
                 <DialogBody>
@@ -113,6 +111,8 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                             <Label>Description</Label>
                             <Input name="description"></Input>
                             <Label>Group</Label>
+                            <Label>Date</Label>
+                            <DatePicker name="date" value={new Date()} showCloseButton size="large"></DatePicker>
                         </DialogContent>
                         <DialogActions position="end">
                             <DialogTrigger>
@@ -134,7 +134,6 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                 <ToolbarButton appearance="primary">Delete</ToolbarButton>
                 <ToolbarDivider />
                 <ResetDB />
-                <InfoButton info={<>Welcome to help!</>}></InfoButton>
             </Toolbar>
             <Divider appearance="strong" inset />
             <div className={styles.layout}>
@@ -144,7 +143,6 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                     <Tab value="2">Another task list</Tab>
                 </TabList>
                 <div className={styles.test}>
-                    <Spinner appearance="inverted" label={"Loading tasks"} size="extra-large"></Spinner>
                     <span>LMAO</span>
                     <span>LOL</span>
                 </div>
