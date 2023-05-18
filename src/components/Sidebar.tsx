@@ -11,15 +11,17 @@ import focusIcon from '../assets/icons/focus.svg'
 import calendarIcon from '../assets/icons/calendar.svg'
 import uploadIcon from '../assets/icons/folder_upload.svg'
 import settingsIcon from '../assets/icons/settings.svg'
-import { Tab, TabList, Tooltip } from '@fluentui/react-components'
+import { Tooltip } from '@fluentui/react-components'
 
 const Sidebar = () => {
     // Generate sidebar entries
     interface listformat {
         lnk: string
-        icon: string
+        icon: string | undefined
         name: string
     }
+
+    // Generate all sidebar locations
     function BuildList({ lnk, icon, name }: listformat) {
         return (
             <Tooltip content={name} relationship='label' visible={state ? undefined : false} positioning="after">
@@ -34,11 +36,13 @@ const Sidebar = () => {
 
     // Toggle sidebar state
     let [state, setHidden] = React.useState(() => {
-        return JSON.parse(localStorage.getItem("Sidebar.state")) ?? false
+        return JSON.parse(localStorage.getItem("Sidebar.state") as string) ?? false
     })
+
     React.useEffect(() => {
         localStorage.setItem("Sidebar.state", JSON.stringify(state))
     }, [state])
+
     return (
         <nav className={`${styles.root} ${state ? styles.collapsed : null} prevent-select`}>
             {/* Menu icon */}
@@ -58,6 +62,7 @@ const Sidebar = () => {
                 <BuildList lnk="" icon={focusIcon} name="Focus" />
                 <BuildList lnk="" icon={calendarIcon} name="Schedule" />
                 <BuildList lnk="" icon={uploadIcon} name="File transfer" />
+                <BuildList lnk="/boogle" icon={undefined} name="Boogle" />
             </section>
             {/* Bottom */}
             <Tooltip content="Settings" relationship='label' positioning="after">

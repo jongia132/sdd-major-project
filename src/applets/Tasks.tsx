@@ -1,25 +1,20 @@
 import styles from "./Tasks.module.css"
-import { Toolbar, ToolbarButton, DataGrid, DataGridHeader, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, Combobox, ComboboxProps, ToolbarGroup, ToolbarDivider } from "@fluentui/react-components"
-import { Alert, InfoButton } from '@fluentui/react-components/unstable';
+import { Toolbar, ToolbarButton, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, ComboboxProps, ToolbarDivider } from "@fluentui/react-components"
+import { Alert } from '@fluentui/react-components/unstable';
 import { DatePicker } from "@fluentui/react-datepicker-compat";
 import { openDB, deleteDB, IDBPDatabase } from "idb"
-import React, { FormEventHandler } from "react"
-import { defer } from "react-router-dom";
+import React, { FormEvent, ReactElement } from "react"
+
 // Avoid type errors
 interface dbTypes {
-    name: {
-        key: number
-        value: string
-    },
-    group: {
-        key: string
-        value: number
-    },
-    date: string,
+    task: object
+    name: string
+    group: string
+    date: Date,
     description: string
 }
 
-// Create or verify existance of database
+// Create or verify the existance of a database
 async function database(): Promise<IDBPDatabase> {
     const db = await openDB("Tasks", 1, {
         upgrade(db) {
@@ -31,23 +26,21 @@ async function database(): Promise<IDBPDatabase> {
     })
     return db
 }
-async function updateTask() { }
 
-async function addTask(event: Event, target: HTMLFormElement) {
+// Add a task to the objectStore
+async function addTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const input = Object.fromEntries(new FormData(target).entries())
-    const db = await database()
-    db.add("default", {
-        name: input.name,
-        description: input.description ?? null,
-        group: 1,
-        date: input.date ?? new Date()
-    });
-    return
+    const input = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries())
+    await database().then(db => {
+        db.add(JSON.stringify(input.group) ?? "default", {
+            name: input.name ?? "Unnamed",
+            description: input.description ?? undefined,
+            date: input.date ?? new Date()
+        });
+    })
 }
 
-async function deleteTask() { }
-
+// DEBUG ONLY
 function ResetDB() {
     const [load, setLoad] = React.useState(false)
     const [status, setStatus] = React.useState(false)
@@ -90,26 +83,27 @@ const Tasks = (props: Partial<ComboboxProps>) => {
     // Intial setup
     const [selectedValue, setSelectedValue] = React.useState<TabValue>(localStorage.getItem("tasks.lastSelected"))
 
-    async function onTabSelect(event: SelectTabEvent, data: SelectTabData ) {
+    // Save current focused group of tasks to storage and switch to it
+    async function onTabSelect(event: SelectTabEvent, data: SelectTabData) {
         const value = data.value as string
         setSelectedValue(value)
         // await loadTasks(value)
         localStorage.setItem("tasks.lastSelected", value)
     }
 
-    async function loadTasks(objectStore: string) {
-        const db = await (await database()).getAll(objectStore)
-        for (const cursor of db) {
-            return <div>{cursor.name}</div>
-        }
+    async function LoadTasks(objectStore: string) {
+        let elements: Array<ReactElement> = []
+        await (await database()).getAll(objectStore).then(function (objects) {
+            for (const cursor of objects) {
+                elements.push(<div>{cursor.name}</div>)
+            }
+        })
+        elements.map(function (d) {
+            return d;
+        })
     }
 
-    function ReadTable() {
-        let lol = JSON.parse(loadTasks)
-        return(
-            <p aria-label={lol}></p>
-        )
-    }
+    // Create the dialogue to make a task
     function AddTaskWindow() {
         return (
             <Dialog modalType="modal">
@@ -117,18 +111,17 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                     <ToolbarButton appearance="primary">Add task</ToolbarButton>
                 </DialogTrigger>
                 <DialogSurface>
-                    <form method="post" onSubmit={() => addTask}>
+                    <form method="post" onSubmit={addTask}>
                         <DialogBody>
                             <DialogTitle>Add Task</DialogTitle>
                         </DialogBody>
-                        <DialogContent>
+                        <DialogContent className={styles.modal}>
                             <Label required>Name</Label>
                             <Input required name="name"></Input>
                             <Label>Description</Label>
                             <Input name="description"></Input>
-                            <Label>Group</Label>
-                            <Label>Date</Label>
-                            <DatePicker name="date" value={new Date()} showCloseButton size="large"></DatePicker>
+                            <Label>Due date</Label>
+                            <DatePicker name="date" value={new Date()} showCloseButton></DatePicker>
                         </DialogContent>
                         <DialogActions position="end">
                             <DialogTrigger>
@@ -147,7 +140,6 @@ const Tasks = (props: Partial<ComboboxProps>) => {
             <h1>Your tasks</h1>
             <Toolbar className={styles.toolbar} size="small">
                 <AddTaskWindow />
-                <ToolbarButton appearance="primary">Delete</ToolbarButton>
                 <ToolbarDivider />
                 <ResetDB />
             </Toolbar>
@@ -161,8 +153,9 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                 <div className={styles.test}>
                     <span>LMAO</span>
                     <span>LOL</span>
+                    <span>LMAO</span>
                 </div>
-                <ReadTable />
+                <LoadTasks objectStore={"lol"} />
             </div>
         </div>
     )
@@ -175,3 +168,7 @@ function TasksWidget() {
 }
 
 export { Tasks, TasksWidget }
+
+function add(arg0: string, arg1: { name: FormDataEntryValue; description: FormDataEntryValue; group: number; date: FormDataEntryValue; }) {
+    throw new Error("Function not implemented.");
+}

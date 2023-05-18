@@ -1,5 +1,6 @@
 .root  {
     background: var(--dark-bg);
+    max-height: 100dvh;
 }
 
 .layout {
@@ -17,6 +18,16 @@
     margin-bottom: 1rem;
 }
 
+.test {
+    overflow-y: auto;
+    height: fit-content;
+}
+
 .toolbar {
     margin-bottom: 1rem;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
 }
