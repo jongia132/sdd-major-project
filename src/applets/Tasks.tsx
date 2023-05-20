@@ -1,9 +1,10 @@
 import styles from "./Tasks.module.css"
-import { Toolbar, ToolbarButton, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, ComboboxProps, ToolbarDivider } from "@fluentui/react-components"
+import { Toolbar, ToolbarButton, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, ComboboxProps, ToolbarDivider, Table, TableHeader, TableRow, TableBody, TableCell, TableHeaderCell } from "@fluentui/react-components"
 import { Alert } from '@fluentui/react-components/unstable';
 import { DatePicker } from "@fluentui/react-datepicker-compat";
 import { openDB, deleteDB, IDBPDatabase } from "idb"
-import React, { FormEvent, ReactElement } from "react"
+import React, { FormEvent, ReactElement, useEffect, useState } from "react"
+import { ContextMenu } from "../components/modules";
 
 // Avoid type errors
 interface dbTypes {
@@ -79,9 +80,49 @@ function ResetDB() {
     )
 }
 
+// function handleContext(e: Event) {
+//     rightClick(true)
+// }
+
+function LoadTasks({ objectStore }: { objectStore: string }) {
+    const [array, setArray] = useState([]) as any
+    let elements = []
+    useEffect(() => {
+        async function query() {
+            let db = await database()
+            await db.getAll(objectStore).then((tasks) => {
+                setArray(tasks)
+            })
+            db.close
+        }
+        query()
+        console.log("LOL")
+
+    }, [undefined]
+    )
+    for (const i in array) {
+        let parsed = Object.assign({}, array[i])
+        elements.push(
+            <TableRow key={parsed.uid}>
+                <TableCell>
+                    {parsed.name}
+                </TableCell>
+                <TableCell>{parsed.description}</TableCell>
+                <TableCell>{parsed.date}</TableCell>
+            </TableRow>
+        )
+    }
+    return (
+        // <div className={styles.test}>{elements}</div>
+        <TableBody>
+            {elements}
+        </TableBody>
+    )
+}
+
 const Tasks = (props: Partial<ComboboxProps>) => {
     // Intial setup
-    const [selectedValue, setSelectedValue] = React.useState<TabValue>(localStorage.getItem("tasks.lastSelected"))
+    const [selectedValue, setSelectedValue] = useState<TabValue>(localStorage.getItem("tasks.lastSelected"))
 
     // Save current focused group of tasks to storage and switch to it
     async function onTabSelect(event: SelectTabEvent, data: SelectTabData) {
@@ -91,17 +132,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
         localStorage.setItem("tasks.lastSelected", value)
     }
 
-    async function LoadTasks(objectStore: string) {
-        let elements: Array<ReactElement> = []
-        await (await database()).getAll(objectStore).then(function (objects) {
-            for (const cursor of objects) {
-                elements.push(<div>{cursor.name}</div>)
-            }
-        })
-        elements.map(function (d) {
-            return d;
-        })
-    }
+    
 
     // Create the dialogue to make a task
     function AddTaskWindow() {
@@ -142,6 +173,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                 <AddTaskWindow />
                 <ToolbarDivider />
                 <ResetDB />
+                <ContextMenu />
             </Toolbar>
             <Divider appearance="strong" inset />
             <div className={styles.layout}>
@@ -150,12 +182,22 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                     <Tab value="1">Some other task list</Tab>
                     <Tab value="2">Another task list</Tab>
                 </TabList>
-                <div className={styles.test}>
-                    <span>LMAO</span>
-                    <span>LOL</span>
-                    <span>LMAO</span>
-                </div>
-                <LoadTasks objectStore={"lol"} />
+                <Table sortable>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHeaderCell>
+                                Name
+                            </TableHeaderCell>
+                            <TableHeaderCell>
+                                Description
+                            </TableHeaderCell>
+                            <TableHeaderCell>
+                                Date
+                            </TableHeaderCell>
+                        </TableRow>
+                    </TableHeader>
+                    <LoadTasks objectStore={"default"} />
+                </Table>
             </div>
         </div>
     )
@@ -163,12 +205,8 @@ const Tasks = (props: Partial<ComboboxProps>) => {
 
 function TasksWidget() {
     return (
-        <p style={{ color: "black" }}>Tasks Widget</p>
+        <LoadTasks objectStore="default"/>
     )
 }
 
 export { Tasks, TasksWidget }
-
-function add(arg0: string, arg1: { name: FormDataEntryValue; description: FormDataEntryValue; group: number; date: FormDataEntryValue; }) {
-    throw new Error("Function not implemented.");
-}

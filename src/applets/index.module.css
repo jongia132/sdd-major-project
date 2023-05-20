@@ -10,7 +10,7 @@
 }
 
 .widget {
-    background: white;
+    background: rgb(16, 16, 16);
     border-radius: var(--rounded-radius);
     display:inline;
     padding: 1rem
