@@ -1,5 +1,5 @@
 import styles from "./Tasks.module.css"
-import { Toolbar, ToolbarButton, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, ComboboxProps, ToolbarDivider, Table, TableHeader, TableRow, TableBody, TableCell, TableHeaderCell } from "@fluentui/react-components"
+import { Toolbar, ToolbarButton, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, ComboboxProps, ToolbarDivider, Table, TableHeader, TableRow, TableBody, DataGridCell, TableHeaderCell, DataGridRow, DataGrid, DataGridHeader, DataGridHeaderCell } from "@fluentui/react-components"
 import { Alert } from '@fluentui/react-components/unstable';
 import { DatePicker } from "@fluentui/react-datepicker-compat";
 import { openDB, deleteDB, IDBPDatabase } from "idb"
@@ -98,18 +98,18 @@ function LoadTasks({ objectStore }: { objectStore: string }) {
         query()
         console.log("LOL")
 
-    }, [undefined]
+    }, [localStorage.getItem("tasks.lastSelected")]
     )
     for (const i in array) {
         let parsed = Object.assign({}, array[i])
         elements.push(
-            <TableRow key={parsed.uid}>
-                <TableCell>
+            <DataGridRow key={parsed.uid}>
+                <DataGridCell>
                     {parsed.name}
-                </TableCell>
-                <TableCell>{parsed.description}</TableCell>
-                <TableCell>{parsed.date}</TableCell>
-            </TableRow>
+                </DataGridCell>
+                <DataGridCell>{parsed.description}</DataGridCell>
+                <DataGridCell>{parsed.date}</DataGridCell>
+            </DataGridRow>
         )
     }
     return (
@@ -182,22 +182,22 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                     <Tab value="1">Some other task list</Tab>
                     <Tab value="2">Another task list</Tab>
                 </TabList>
-                <Table sortable>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHeaderCell>
+                <DataGrid sortable size="small">
+                    <DataGridHeader>
+                        <DataGridRow>
+                            <DataGridHeaderCell>
                                 Name
-                            </TableHeaderCell>
-                            <TableHeaderCell>
+                            </DataGridHeaderCell>
+                            <DataGridHeaderCell>
                                 Description
-                            </TableHeaderCell>
-                            <TableHeaderCell>
+                            </DataGridHeaderCell>
+                            <DataGridHeaderCell>
                                 Date
-                            </TableHeaderCell>
-                        </TableRow>
-                    </TableHeader>
+                            </DataGridHeaderCell>
+                        </DataGridRow>
+                    </DataGridHeader>
                     <LoadTasks objectStore={"default"} />
-                </Table>
+                </DataGrid>
             </div>
         </div>
     )
