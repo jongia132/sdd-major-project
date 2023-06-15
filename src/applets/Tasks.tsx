@@ -1,5 +1,5 @@
 import styles from "./Tasks.module.css"
-import { Toolbar, ToolbarButton, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, ComboboxProps, ToolbarDivider, Table, TableHeader, TableRow, TableBody, TableCell, TableHeaderCell } from "@fluentui/react-components"
+import { Toolbar, ToolbarButton, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, ComboboxProps, ToolbarDivider, Table, TableHeader, TableRow, TableBody, TableCell, TableHeaderCell, MenuButton, Menu, MenuTrigger, MenuList, MenuPopover, MenuItem } from "@fluentui/react-components"
 import { Alert } from '@fluentui/react-components/unstable';
 import { DatePicker } from "@fluentui/react-datepicker-compat";
 import { openDB, deleteDB, IDBPDatabase } from "idb"
@@ -26,19 +26,6 @@ async function database(): Promise<IDBPDatabase> {
         }
     })
     return db
-}
-
-// Add a task to the objectStore
-async function addTask(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const input = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries())
-    await database().then(db => {
-        db.add(JSON.stringify(input.group) ?? "default", {
-            name: input.name ?? "Unnamed",
-            description: input.description ?? undefined,
-            date: input.date ?? new Date()
-        });
-    })
 }
 
 // DEBUG ONLY
@@ -80,10 +67,41 @@ function ResetDB() {
     )
 }
 
-// function handleContext(e: Event) {
-//     rightClick(true)
-// }
+function handleContext(e: Event) {
 
+}
+
+// Tasks class
+class Task {
+    uid: number
+    name: string
+    date: Date = new Date()
+
+    // Delete Task function
+    async delete() {
+        await database()
+    }
+
+    // Add a task to the objectStore
+    async addTask(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        const input = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries())
+        await database().then(db => {
+            db.add(JSON.stringify(input.group) ?? "default", {
+                name: input.name ?? "Unnamed",
+                description: input.description ?? undefined,
+                date: input.date ?? new Date()
+            });
+        })
+    }
+
+    // Log task information
+    log() {
+        console.log(this.uid)
+    }
+}
+
+// Load tasks into interface
 function LoadTasks({ objectStore }: { objectStore: string }) {
     const [array, setArray] = useState([]) as any
     let elements = []
@@ -96,10 +114,20 @@ function LoadTasks({ objectStore }: { objectStore: string }) {
             db.close
         }
         query()
-        console.log("LOL")
-
     }, [undefined]
     )
+    // let stuff: Array<Object> = array
+    // stuff.map((object, index) => {
+    //     return(
+    //         <TableRow key={object.uid}>
+    //             <TableCell>
+    //                 {object.name}
+    //             </TableCell>
+    //             <TableCell>{object.description}</TableCell>
+    //             <TableCell>{object.date}</TableCell>
+    //         </TableRow>
+    //     )
+    // })
     for (const i in array) {
         let parsed = Object.assign({}, array[i])
         elements.push(
@@ -109,6 +137,28 @@ function LoadTasks({ objectStore }: { objectStore: string }) {
                 </TableCell>
                 <TableCell>{parsed.description}</TableCell>
                 <TableCell>{parsed.date}</TableCell>
+                <TableCell>
+                    <Menu>
+                        <MenuTrigger>
+                            <MenuButton size="small">hi</MenuButton>
+                        </MenuTrigger>
+                        <MenuPopover>
+                            <MenuList>
+                                <MenuItem onClick={new Task().delete}>Delete</MenuItem>
+                                <MenuItem>Edit</MenuItem>
+                                <MenuItem onClick={() => console.log(parsed.uid)}>LOG</MenuItem>
+                                <MenuItem>
+                                    {/* <MenuTrigger>
+                                        <MenuButton>Move to group</MenuButton>
+                                    </MenuTrigger>
+                                    <MenuPopover>
+                                        <MenuList>GROUP</MenuList>
+                                    </MenuPopover> */}
+                                </MenuItem>
+                            </MenuList>
+                        </MenuPopover>
+                    </Menu>
+                </TableCell>
             </TableRow>
         )
     }
@@ -132,7 +182,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
         localStorage.setItem("tasks.lastSelected", value)
     }
 
-    
+
 
     // Create the dialogue to make a task
     function AddTaskWindow() {
@@ -142,7 +192,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                     <ToolbarButton appearance="primary">Add task</ToolbarButton>
                 </DialogTrigger>
                 <DialogSurface>
-                    <form method="post" onSubmit={addTask}>
+                    <form method="post" onSubmit={new Task().addTask}>
                         <DialogBody>
                             <DialogTitle>Add Task</DialogTitle>
                         </DialogBody>
@@ -178,6 +228,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
             <Divider appearance="strong" inset />
             <div className={styles.layout}>
                 <TabList onTabSelect={onTabSelect} selectedValue={selectedValue ? selectedValue : "default"} size="large" vertical>
+                    <h2>Groups</h2>
                     <Tab value="default">Tasks</Tab>
                     <Tab value="1">Some other task list</Tab>
                     <Tab value="2">Another task list</Tab>
@@ -205,7 +256,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
 
 function TasksWidget() {
     return (
-        <LoadTasks objectStore="default"/>
+        <LoadTasks objectStore="default" />
     )
 }
 
