@@ -4,7 +4,6 @@ import { Alert } from '@fluentui/react-components/unstable';
 import { DatePicker } from "@fluentui/react-datepicker-compat";
 import { openDB, deleteDB, IDBPDatabase } from "idb"
 import React, { FormEvent, ReactElement, useEffect, useState } from "react"
-import { ContextMenu } from "../components/modules";
 
 // Avoid type errors
 interface dbTypes {
@@ -67,19 +66,41 @@ function ResetDB() {
     )
 }
 
-function handleContext(e: Event) {
-
-}
+// function ContextMenu(target: any) {
+//     return (
+//         <Menu>
+//             <MenuTrigger>
+//                 <MenuButton size="small">hi</MenuButton>
+//             </MenuTrigger>
+//             <MenuPopover>
+//                 <MenuList>
+//                     <MenuItem onClick={new Task().delete}>Delete</MenuItem>
+//                     <MenuItem>Edit</MenuItem>
+//                     <MenuItem onClick={() => console.log(target)}>LOG</MenuItem>
+//                     <MenuItem>
+//                         {/* <MenuTrigger>
+//                                         <MenuButton>Move to group</MenuButton>
+//                                     </MenuTrigger>
+//                                     <MenuPopover>
+//                                         <MenuList>GROUP</MenuList>
+//                                     </MenuPopover> */}
+//                     </MenuItem>
+//                 </MenuList>
+//             </MenuPopover>
+//         </Menu>
+//     )
+// }
 
 // Tasks class
 class Task {
-    uid: number
-    name: string
-    date: Date = new Date()
+    // uid: number
+    // name: string
+    // date: Date = new Date()
 
     // Delete Task function
-    async delete() {
-        await database()
+    async delete(target: IDBKeyRange) {
+        const db = await database()
+        db.delete("default", target)
     }
 
     // Add a task to the objectStore
@@ -95,9 +116,64 @@ class Task {
         })
     }
 
-    // Log task information
-    log() {
-        console.log(this.uid)
+    // Edit a task in the objectStore
+    editTask(target: IDBKeyRange) {
+        let task
+        useEffect(() => {
+            async function query() {
+                let db = await database()
+                task = db.get("default", target)
+            }
+            query()
+            console.log("Load")
+        }, []
+        )
+        return (
+            <Dialog modalType="modal">
+                <DialogTrigger disableButtonEnhancement>
+                    <MenuItem>Edit</MenuItem>
+                </DialogTrigger>
+                <DialogSurface>
+                    <form method="post">
+                        <DialogBody>
+                            <DialogTitle>Edit Task</DialogTitle>
+                        </DialogBody>
+                        <DialogContent className={styles.modal}>
+                            <Label required>Name</Label>
+                            <Input required name="name"></Input>
+                            <Label>Description</Label>
+                            <Input name="description"></Input>
+                            <Label>Due date</Label>
+                            <DatePicker name="date" showCloseButton></DatePicker>
+                        </DialogContent>
+                        <DialogActions position="end">
+                            <DialogTrigger>
+                                <Button type="reset" appearance="secondary">Cancel</Button>
+                            </DialogTrigger>
+                            <Button type="submit" appearance="primary">Confirm</Button>
+                        </DialogActions>
+                    </form>
+                </DialogSurface>
+            </Dialog>
+        )
+    }
+
+    // Return menu item
+    contextMenu(target: IDBKeyRange) {
+        return (
+            <Menu>
+                <MenuTrigger>
+                    <MenuButton size="small" icon={"*"}></MenuButton>
+                </MenuTrigger>
+                <MenuPopover>
+                    <MenuList>
+                        <MenuItem onClick={() => this.delete(target)}>Delete</MenuItem>
+                        {this.editTask(target)}
+                        <MenuItem onClick={() => console.log(target)}>LOG</MenuItem>
+                    </MenuList>
+                </MenuPopover>
+            </Menu>
+        )
     }
 }
 
@@ -112,9 +188,10 @@ function LoadTasks({ objectStore }: { objectStore: string }) {
                 setArray(tasks)
             })
             db.close
+            console.log("RIP")
         }
         query()
-    }, [undefined]
+    }, []
     )
     // let stuff: Array<Object> = array
     // stuff.map((object, index) => {
@@ -131,33 +208,14 @@ function LoadTasks({ objectStore }: { objectStore: string }) {
     for (const i in array) {
         let parsed = Object.assign({}, array[i])
         elements.push(
-            <TableRow key={parsed.uid}>
+            <TableRow key={parsed.uid} data-key={parsed.uid}>
                 <TableCell>
                     {parsed.name}
                 </TableCell>
                 <TableCell>{parsed.description}</TableCell>
                 <TableCell>{parsed.date}</TableCell>
                 <TableCell>
-                    <Menu>
-                        <MenuTrigger>
-                            <MenuButton size="small">hi</MenuButton>
-                        </MenuTrigger>
-                        <MenuPopover>
-                            <MenuList>
-                                <MenuItem onClick={new Task().delete}>Delete</MenuItem>
-                                <MenuItem>Edit</MenuItem>
-                                <MenuItem onClick={() => console.log(parsed.uid)}>LOG</MenuItem>
-                                <MenuItem>
-                                    {/* <MenuTrigger>
-                                        <MenuButton>Move to group</MenuButton>
-                                    </MenuTrigger>
-                                    <MenuPopover>
-                                        <MenuList>GROUP</MenuList>
-                                    </MenuPopover> */}
-                                </MenuItem>
-                            </MenuList>
-                        </MenuPopover>
-                    </Menu>
+                    {/* {new Task().contextMenu(parsed.uid)} */}
                 </TableCell>
             </TableRow>
         )
@@ -223,7 +281,6 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                 <AddTaskWindow />
                 <ToolbarDivider />
                 <ResetDB />
-                <ContextMenu />
             </Toolbar>
             <Divider appearance="strong" inset />
             <div className={styles.layout}>

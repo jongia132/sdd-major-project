@@ -61,7 +61,6 @@ const Sidebar = () => {
                 <BuildList lnk="/tasks" icon={taskIcon} name="Tasks" />
                 <BuildList lnk="" icon={focusIcon} name="Focus" />
                 <BuildList lnk="" icon={calendarIcon} name="Schedule" />
-                <BuildList lnk="" icon={uploadIcon} name="File transfer" />
                 <BuildList lnk="/boogle" icon={undefined} name="Boogle" />
             </section>
             {/* Bottom */}
