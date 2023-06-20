@@ -116,46 +116,53 @@ class Task {
         })
     }
 
+    // Load task based on IDB key
+    readTask(target: IDBKeyRange) {
+        const [task, setTask] = useState()
+        useEffect(() => {
+            async function fetchTask() {
+                const db = await database()
+                const task = await db.get("default", target)
+                setTask(task)
+            }
+            fetchTask()
+        }, [target])
+        return task
+    }
+
     // Edit a task in the objectStore
     editTask(target: IDBKeyRange) {
-        let task
-        useEffect(() => {
-            async function query() {
-                let db = await database()
-                task = db.get("default", target)
-            }
-            query()
-            console.log("Load")
-        }, []
-        )
-        return (
-            <Dialog modalType="modal">
-                <DialogTrigger disableButtonEnhancement>
-                    <MenuItem>Edit</MenuItem>
-                </DialogTrigger>
-                <DialogSurface>
-                    <form method="post">
-                        <DialogBody>
-                            <DialogTitle>Edit Task</DialogTitle>
-                        </DialogBody>
-                        <DialogContent className={styles.modal}>
-                            <Label required>Name</Label>
-                            <Input required name="name"></Input>
-                            <Label>Description</Label>
-                            <Input name="description"></Input>
-                            <Label>Due date</Label>
-                            <DatePicker name="date" showCloseButton></DatePicker>
-                        </DialogContent>
-                        <DialogActions position="end">
-                            <DialogTrigger>
-                                <Button type="reset" appearance="secondary">Cancel</Button>
-                            </DialogTrigger>
-                            <Button type="submit" appearance="primary">Confirm</Button>
-                        </DialogActions>
-                    </form>
-                </DialogSurface>
-            </Dialog>
-        )
+        const task = this.readTask(target)
+        console.log(task)
+        // return (
+        //     <Dialog modalType="modal">
+        //         <DialogTrigger disableButtonEnhancement>
+        //             {/* <MenuItem>Edit</MenuItem> */}
+        //             <Button appearance="subtle">Edit task</Button>
+        //         </DialogTrigger>
+        //         <DialogSurface>
+        //             <form method="post">
+        //                 <DialogBody>
+        //                     <DialogTitle>Edit Task</DialogTitle>
+        //                 </DialogBody>
+        //                 <DialogContent className={styles.modal}>
+        //                     <Label required>Name</Label>
+        //                     <Input required name="name"></Input>
+        //                     <Label>Description</Label>
+        //                     <Input name="description"></Input>
+        //                     <Label>Due date</Label>
+        //                     <DatePicker name="date" showCloseButton></DatePicker>
+        //                 </DialogContent>
+        //                 <DialogActions position="end">
+        //                     <DialogTrigger>
+        //                         <Button type="reset" appearance="secondary">Cancel</Button>
+        //                     </DialogTrigger>
+        //                     <Button type="submit" appearance="primary">Confirm</Button>
+        //                 </DialogActions>
+        //             </form>
+        //         </DialogSurface>
+        //     </Dialog>
+        // )
     }
 
     // Return menu item
@@ -168,7 +175,7 @@ class Task {
                 <MenuPopover>
                     <MenuList>
                         <MenuItem onClick={() => this.delete(target)}>Delete</MenuItem>
-                        {this.editTask(target)}
+                        {/* {this.editTask(target)} */}
                         <MenuItem onClick={() => console.log(target)}>LOG</MenuItem>
                     </MenuList>
                 </MenuPopover>
@@ -188,7 +195,6 @@ function LoadTasks({ objectStore }: { objectStore: string }) {
                 setArray(tasks)
             })
             db.close
-            console.log("RIP")
         }
         query()
     }, []
@@ -215,7 +221,7 @@ function LoadTasks({ objectStore }: { objectStore: string }) {
                 <TableCell>{parsed.description}</TableCell>
                 <TableCell>{parsed.date}</TableCell>
                 <TableCell>
-                    {/* {new Task().contextMenu(parsed.uid)} */}
+                    {new Task().contextMenu(parsed.uid)}
                 </TableCell>
             </TableRow>
         )
