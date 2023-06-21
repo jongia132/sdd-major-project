@@ -28,7 +28,7 @@ const Index = () => {
                     <PomodoroWidget />
                 </div>
                 <div className={styles.widget}>
-                    <TasksWidget />
+                    {/* <TasksWidget /> */}
                 </div>
             </div>
         </div>
