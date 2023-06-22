@@ -10,8 +10,10 @@ interface dbTypes {
     task: object
     name: string
     group: string
-    date: Date,
-    description: string
+    date: string,
+    description: string,
+    uid: IDBKeyRange | any,
+    state: boolean
 }
 
 // Create or verify the existance of a database
@@ -226,7 +228,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
         let parsed = array
         return (
             <>
-                {parsed.map((item: { name: string, uid: IDBKeyRange | any, state: boolean, description: string, date: string }) => {
+                {parsed.map((item: dbTypes) => {
                     return (
                         <TableRow key={item.uid} data-key={item.uid}>
                             <TableCell>
