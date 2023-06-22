@@ -146,18 +146,11 @@ const Tasks = (props: Partial<ComboboxProps>) => {
         }
 
         // Load task based on IDB key
-        readTask(target: IDBKeyRange) {
-            const [task, setTask] = useState()
-            useEffect(() => {
-                async function fetchTask() {
-                    const db = await database()
-                    const task = await db.get("default", target)
-                    setTask(task)
-                    db.close
-                }
-                fetchTask()
-            }, [target])
-            return task
+        async readTask(target: IDBKeyRange) {
+            const db = await database()
+            const retrieved = await db.get("default", target)
+            db.close
+            return retrieved
         }
 
         // Return menu item
@@ -176,43 +169,10 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                 // </Menu>
                 <>
                     <Button onClick={() => this.delete(target)}>Delete</Button>
-                    <EditTask target={target} />
+                    <EditTaskWindow target={target} />
                 </>
             )
         }
-    }
-
-    // Edit a task in the objectStore
-    function EditTask(target: any) {
-        const task = new Task().readTask(target.target)
-        return (
-            <Dialog modalType="modal">
-                <DialogTrigger disableButtonEnhancement>
-                    <Button>Edit</Button>
-                </DialogTrigger>
-                <DialogSurface>
-                    <form method="post">
-                        <DialogBody>
-                            <DialogTitle>Edit Task</DialogTitle>
-                        </DialogBody>
-                        <DialogContent className={styles.modal}>
-                            <Label required>Name</Label>
-                            <Input required name="name"></Input>
-                            <Label>Description</Label>
-                            <Input name="description"></Input>
-                            <Label>Due date</Label>
-                            <DatePicker name="date" showCloseButton></DatePicker>
-                        </DialogContent>
-                        <DialogActions position="end">
-                            <DialogTrigger>
-                                <Button type="reset" appearance="secondary">Cancel</Button>
-                            </DialogTrigger>
-                            <Button type="submit" appearance="primary">Confirm</Button>
-                        </DialogActions>
-                    </form>
-                </DialogSurface>
-            </Dialog>
-        )
     }
 
     // Load tasks into interface
@@ -286,7 +246,16 @@ const Tasks = (props: Partial<ComboboxProps>) => {
     }
 
     // Create the dialogue to make a task
-    function AddTaskWindow() {
+    function AddTaskWindow(target: IDBKeyRange) {
+        useEffect(() => {
+            async function query() {
+                new Task().readTask(target).then(e =>
+                    console.log(e)
+                )
+            }
+            query()
+        }, [])
+
         return (
             <Dialog modalType="modal">
                 <DialogTrigger disableButtonEnhancement>
@@ -310,6 +279,37 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                                 <Button type="reset" appearance="secondary">Cancel</Button>
                             </DialogTrigger>
                             <Button type="submit" appearance="primary">Add</Button>
+                        </DialogActions>
+                    </form>
+                </DialogSurface>
+            </Dialog>
+        )
+    }
+
+    function EditTaskWindow() {
+        return (
+            <Dialog modalType="modal">
+                <DialogTrigger disableButtonEnhancement>
+                    <Button>Edit</Button>
+                </DialogTrigger>
+                <DialogSurface>
+                    <form method="post">
+                        <DialogBody>
+                            <DialogTitle>Edit Task</DialogTitle>
+                        </DialogBody>
+                        <DialogContent className={styles.modal}>
+                            <Label required>Name</Label>
+                            <Input required name="name"></Input>
+                            <Label>Description</Label>
+                            <Input name="description"></Input>
+                            <Label>Due date</Label>
+                            <DatePicker name="date" showCloseButton></DatePicker>
+                        </DialogContent>
+                        <DialogActions position="end">
+                            <DialogTrigger>
+                                <Button type="reset" appearance="secondary">Cancel</Button>
+                            </DialogTrigger>
+                            <Button type="submit" appearance="primary">Confirm</Button>
                         </DialogActions>
                     </form>
                 </DialogSurface>
