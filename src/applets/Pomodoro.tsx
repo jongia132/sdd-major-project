@@ -5,47 +5,57 @@ const Pomodoro = () => {
     class Timer {
         mins = 0
         secs = 0
-        count = 0
+        count: number
+        interval: any
 
-        constructor(input: number) {
-            this.count = input
-        }
+        // constructor(input: number) {
+        //     this.count = input
+        // }
         startTimer(count: number) {
             this.mins = count
+            console.log(this.mins)
             if (this.mins < 1 || this.mins > 99) {
                 return alert("Invalid value")
             }
             btnState(!button)
             this.count = this.mins*60
-            setTimeout(this.timer, 1000)
-            return
+            this.interval = setTimeout(this.timer, 1000)
+            // return
         }
 
 
-        timer() {
+        timer(count: number) {
+            console.log(this.count)
             if (this.count > 0) {
                 this.count -= 1
                 this.mins = Math.floor(this.count/60)
                 this.secs = this.count % 60
                 console.table(this)
+                return
             }
-            stopTimer()
+            // this.stopTimer
+            console.log("stopping")
+            return
+        }
+
+        stopTimer() {
+            console.log("stopped")
+            clearInterval(this.interval)
+            btnState(!button)
         }
     }
         
     let [button, btnState] = useState(true)
-    // const timedisplay = useState(new Timer().Timer)
+    // const timedisplay = useState(new Timer(7).timer())
 
     // Start/stop button
-    function stopTimer() {
-        btnState(!button)
-    }
+
     function ToggleButton() {
         if (button) {
-            return <button id="start" className={styles.button} onClick={() => new Timer(5).startTimer}>START</button>
+            return <button id="start" className={styles.button} onClick={() => new Timer().startTimer(6)}>START</button>
         }
         else {
-            return <button id="stop" className={styles.button} onClick={stopTimer}>STOP</button>
+            return <button id="stop" className={styles.button} onClick={() => new Timer().stopTimer()}>STOP</button>
         }
     }
 
