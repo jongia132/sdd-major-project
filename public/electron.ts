@@ -11,7 +11,8 @@ const createWindow = () => {
         minHeight: 600
     })
 
-    win.loadURL("http://localhost:5173")
+    win.loadURL(path.join(__dirname, "../dist/index.html"))
+    // "http://localhost:5173"
     
 }
 app.whenReady().then(() => {

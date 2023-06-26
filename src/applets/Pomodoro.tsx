@@ -1,44 +1,61 @@
 import styles from './Pomodoro.module.css'
-import React from "react"
+import React, {useState} from "react"
 const Pomodoro = () => {
-    let Time = {
-        mins: 0,
-        secs: 0,
-        count: 0
-    };
-    let [button, btnState] = React.useState(true)
-    const timedisplay = React.useState(Timer)
 
-    function startTimer(mins: number) {
-        Time.mins = mins
-        if (Time.mins < 1 || Time.mins > 99) {
-            return alert("Invalid value")
-        }
-        btnState(!button)
-        Time.count = mins*60
-        setTimeout(Timer, 1000)
-    }
+    class Timer {
+        mins = 0
+        secs = 0
+        count: number
+        interval: any
 
-    function Timer() {
-        if (Time.count > 0) {
-            Time.count -= 1
-            Time.mins = Math.floor(Time.count/60)
-            Time.secs = Time.count % 60
-            console.table(Time)
+        // constructor(input: number) {
+        //     this.count = input
+        // }
+        startTimer(count: number) {
+            this.mins = count
+            console.log(this.mins)
+            if (this.mins < 1 || this.mins > 99) {
+                return alert("Invalid value")
+            }
+            btnState(!button)
+            this.count = this.mins*60
+            this.interval = setTimeout(this.timer, 1000)
+            // return
         }
-        stopTimer()
+
+
+        timer(count: number) {
+            console.log(this.count)
+            if (this.count > 0) {
+                this.count -= 1
+                this.mins = Math.floor(this.count/60)
+                this.secs = this.count % 60
+                console.table(this)
+                return
+            }
+            // this.stopTimer
+            console.log("stopping")
+            return
+        }
+
+        stopTimer() {
+            console.log("stopped")
+            clearInterval(this.interval)
+            btnState(!button)
+        }
     }
+        
+    let [button, btnState] = useState(true)
+    // const timedisplay = useState(new Timer(7).timer())
 
     // Start/stop button
-    function stopTimer() {
-        btnState(!button)
-    }
+
     function ToggleButton() {
         if (button) {
-            return <button id="start" className={styles.button} onClick={stopTimer}>START</button>
+            return <button id="start" className={styles.button} onClick={() => new Timer().startTimer(6)}>START</button>
         }
         else {
-            return <button id="stop" className={styles.button} onClick={stopTimer}>STOP</button>
+            return <button id="stop" className={styles.button} onClick={() => new Timer().stopTimer()}>STOP</button>
         }
     }
 
@@ -52,6 +69,7 @@ const Pomodoro = () => {
                 <input className={styles.input} type="number" min="0" max="9" step="1"/>
                 <p>:</p>
                 <input className={styles.input} type="number" min="0" max="59" step="5"/>
+                <p><span>6</span>:<span>30</span></p>
             </section>
             <ToggleButton/>
         </div>
