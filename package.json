@@ -3,22 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "main": "public/electron.ts",
-  "homepage": "./",
+  "homepage": ".",
   "dependencies": {
     "@fluentui/react-components": "^9.18.8",
     "@fluentui/react-datepicker-compat": "^0.0.0",
+    "electron-squirrel-startup": "^1.0.0",
     "idb": "^7.1.1",
     "react": "^18.2.0",
-    "react-app-polyfill": "^3.0.0",
     "react-dom": "^18.2.0",
-    "react-refresh": "^0.14.0",
     "react-router-dom": "^6.9.0"
   },
   "scripts": {
     "start": "concurrently -k \"vite\" \"electron . --remote-debugging-port=9223\"",
-    "build": "vite build"
+    "build": "vite build --base=./",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.2.1",
+    "@electron-forge/maker-deb": "^6.2.1",
+    "@electron-forge/maker-rpm": "^6.2.1",
+    "@electron-forge/maker-squirrel": "^6.2.1",
+    "@electron-forge/maker-zip": "^6.2.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
