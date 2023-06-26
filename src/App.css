@@ -1,15 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap');
-* {
+@font-face {
+  font-family: 'Figtree';
+  font-display: swap;
+  font-weight: 300 700;
+  src:
+    url('./assets/fonts/Figtree-VariableFont_wght.ttf') format("truetype")
+}
+
+body {
   font-family: 'Figtree', sans-serif;
+  margin: 0
+}
+
+h1 {
+  font-size: var(--font-title);
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.326);
+  margin: 2rem 0
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.content {
+  padding: 2dvw;
+  color: white;
+  overflow-y: auto;
+  /* border-radius: var(--borderRadiusLarge); */
 }
 
 .prevent-select {
-  user-select: none; /* Standard syntax */
+  user-select: none;
+  /* Standard syntax */
 }
 
 button {
   border: none;
-  border-radius: var(--rounded-radius);
+  border-radius: var(--borderRadiusLarge);
   padding: 0.5rem;
   font-size: 1.1rem;
   font-weight: 600;
@@ -19,11 +52,15 @@ button {
 :root {
   /* Personalisation */
   --background-image: url('./assets/Yum.jpg');
+  color-scheme: dark;
 
   /* Design System */
-  --rounded-radius: 5px;
   --font-regular: 1rem;
   --font-emphasis: 1.5rem;
   --font-heading: 1.9rem;
-  --font-title: 2.2rem
+  --font-title: 2.2rem;
+
+  /* Colour system */
+  --dark-bg: #1f1f1f;
+  --light-bg: #fafafa
 }

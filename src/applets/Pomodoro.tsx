@@ -44,7 +44,7 @@ const Pomodoro = () => {
 
     // Return app
     return (
-    <div className={styles.back}>
+    <div className={`${styles.root} ${"content"}`}>
         <h1>Pomodoro Timer</h1>
         <div className={styles.timer}>
             <progress value="0" max="60"/>
@@ -61,7 +61,7 @@ const Pomodoro = () => {
 
 function PomodoroWidget() {
     return (
-        <p>Widget loaded</p>
+        <p style={{color: "black"}}>Pomodoro widget loaded</p>
     );
 }
 export {Pomodoro, PomodoroWidget}

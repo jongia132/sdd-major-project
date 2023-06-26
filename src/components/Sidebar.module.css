@@ -1,11 +1,11 @@
 :root {
-    --hover: rgba(210, 255, 255, 0.182);
+    --hover: rgb(219 219 219 / 32%);
     --icon-padding: 0.4rem;
     --icon-size: 26px
 }
 
-.sidebar {
-    backdrop-filter: blur(20px) brightness(0.4) contrast(0.9);
+.root {
+    backdrop-filter: blur(15px) brightness(0.5);
     height: 100dvh;
     color: white;
     display:flex;
@@ -13,8 +13,8 @@
     padding: 10px;
     width: 220px;
     box-sizing: border-box;
-    transition: ease-out;
-    transition-duration: 150ms;
+    transition: ease width;
+    transition-duration: 300ms;
 }
 
 .collapsed {
@@ -23,24 +23,26 @@
 
 .navList {
     align-items: left;
-    overflow-y: auto;
-    overflow-x: hidden;
     white-space: nowrap
 }
 
 .menuItem {
     display: flex;
+    box-sizing: border-box;
     flex-direction: row;
     align-items: center;
     font-size: var(--font-regular);
-    border-radius: var(--rounded-radius);
+    border-radius: var(--borderRadiusLarge);
     margin-top: 5px;
     text-decoration: none;
-    padding: var(--icon-padding)
+    padding: var(--icon-padding);
+    overflow-x: hidden;
 }
 
 .menuItem:hover {
-    background: var(--hover)
+    background: var(--hover);
+    box-shadow: var(--shadow4);
+    
 }
 
 .icon {
@@ -52,13 +54,9 @@
     margin-left: 8px;
 }
 
-/* .hidden {
-    display: none;
-} */
-
 .menuIcon {
     padding: var(--icon-padding);
-    border-radius: var(--rounded-radius);
+    border-radius: var(--borderRadiusLarge);
     width: var(--icon-size);
     margin-bottom: 1rem
 }
@@ -75,7 +73,7 @@
     margin-top:auto;
     width: fit-content;
     height: var(--icon-size);
-    border-radius: var(--rounded-radius);
+    border-radius: var(--borderRadiusLarge);
     padding: var(--icon-padding)
 }
 

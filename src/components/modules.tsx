@@ -1,16 +1,31 @@
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import backIcon from "../assets/arrow_back.svg"
+import styles from "./modules.module.css"
+import { Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger } from "@fluentui/react-components"
+
 const BackButton = () => {
-    return(
-        <Link to={'/'} style={{
-            fontSize: "var(--font-regular)",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            cursor: "pointer"
-            }} ><img alt="Back button" src={backIcon} height="30px"></img>Back
-        </Link>
+    const navigate = useNavigate()
+    function goback() {
+        navigate(-1)
+    }
+    return (
+        <a onClick={goback} className={styles.backButton} ><img alt="Back button" src={backIcon} height="30px"></img>Back</a>
     )
 }
 
-export {BackButton} 
+
+function ContextMenu() {
+    return (
+        <Menu>
+            <MenuTrigger>
+                <Button>Toggle menu</Button>
+            </MenuTrigger>
+            <MenuPopover>
+                <MenuList>
+                    <MenuItem>Testing!</MenuItem>
+                </MenuList>
+            </MenuPopover>
+        </Menu>
+    )
+}
+export { BackButton, ContextMenu } 

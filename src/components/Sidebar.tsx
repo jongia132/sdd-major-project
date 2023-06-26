@@ -11,27 +11,40 @@ import focusIcon from '../assets/icons/focus.svg'
 import calendarIcon from '../assets/icons/calendar.svg'
 import uploadIcon from '../assets/icons/folder_upload.svg'
 import settingsIcon from '../assets/icons/settings.svg'
+import { Tooltip } from '@fluentui/react-components'
 
 const Sidebar = () => {
     // Generate sidebar entries
     interface listformat {
         lnk: string
-        icon: string
+        icon: string | undefined
         name: string
     }
-    function BuildList({lnk, icon, name}: listformat) {
-        return(
-            <Link to={lnk} className={styles.menuItem}>
-                <img draggable="false" className={styles.icon} src={icon}></img>
-                <span className={`${styles.navEntry} ${state ? styles.hidden : null}`}>{name}</span>
-            </Link>
+
+    // Generate all sidebar locations
+    function BuildList({ lnk, icon, name }: listformat) {
+        return (
+            <Tooltip content={name} relationship='label' visible={state ? undefined : false} positioning="after">
+                <Link to={lnk} className={styles.menuItem}>
+                    <img draggable="false" className={styles.icon} src={icon}></img>
+                    <span className={`${styles.navEntry}`}>{name}</span>
+                    {/* hidden={state ? true : undefined} */}
+                </Link>
+            </Tooltip>
         )
     }
 
     // Toggle sidebar state
-    let [state, setHidden] = React.useState(false)
-    return(
-        <nav className={`${styles.sidebar} ${state ? styles.collapsed : null} prevent-select`}>
+    let [state, setHidden] = React.useState(() => {
+        return JSON.parse(localStorage.getItem("Sidebar.state") as string) ?? false
+    })
+
+    React.useEffect(() => {
+        localStorage.setItem("Sidebar.state", JSON.stringify(state))
+    }, [state])
+
+    return (
+        <nav className={`${styles.root} ${state ? styles.collapsed : null} prevent-select`}>
             {/* Menu icon */}
             <img className={`${styles.menuIcon} ${styles.icon}`} src={menuIcon} onClick={() => setHidden(!state)} draggable="false"></img>
 
@@ -43,18 +56,19 @@ const Sidebar = () => {
 
             {/* Main navigation modules */}
             <section className={styles.navList}>
-                <BuildList lnk='/' icon={dashboardIcon} name="Dashboard"/>
-                <BuildList lnk='/pomodoro' icon={pomodoroIcon} name="Pomodoro timer"/>
-                <BuildList lnk="" icon={taskIcon} name="Tasks"/>
-                <BuildList lnk="" icon={focusIcon} name="Focus"/>
-                <BuildList lnk="" icon={calendarIcon} name="Schedule"/>
-                <BuildList lnk="" icon={uploadIcon} name="File transfer"/>
+                <BuildList lnk='/' icon={dashboardIcon} name="Dashboard" />
+                <BuildList lnk='/pomodoro' icon={pomodoroIcon} name="Pomodoro timer" />
+                <BuildList lnk="/tasks" icon={taskIcon} name="Tasks" />
+                <BuildList lnk="" icon={focusIcon} name="Focus" />
+                <BuildList lnk="" icon={calendarIcon} name="Schedule" />
+                <BuildList lnk="/boogle" icon={undefined} name="Boogle" />
             </section>
-            
             {/* Bottom */}
-            <Link to={'/settings'} className={styles.bottom}>
-                <img draggable="false" className={styles.icon} src={settingsIcon}></img>
-            </Link>
+            <Tooltip content="Settings" relationship='label' positioning="after">
+                <Link to={'/settings'} className={styles.bottom}>
+                    <img draggable="false" className={styles.icon} src={settingsIcon}></img>
+                </Link>
+            </Tooltip>
         </nav>
     )
 }

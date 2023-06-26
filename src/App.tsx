@@ -1,23 +1,26 @@
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Index from "./applets/index"
 import { Pomodoro } from './applets/Pomodoro'
-import Settings from "./components/settings/settings"
+import Settings from "./components/settings"
 import Layout from './components/Layout'
+import Boogle from './applets/Boogle'
+import { Tasks } from "./applets/Tasks"
+import { FluentProvider, webDarkTheme } from '@fluentui/react-components'
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
+    <FluentProvider theme={webDarkTheme}>
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Index />} />
-            <Route path='/pomodoro' element={<Pomodoro />}/>
+            <Route path='/pomodoro' element={<Pomodoro />} />
+            <Route path='/tasks' element={<Tasks />} />
+            <Route path='/boogle' element={<Boogle />} />
           </Route>
-          <Route path='/settings' element={<Settings />}/>
+          <Route path='/settings' element={<Settings />} />
         </Routes>
-      </BrowserRouter>
-    </div>
+    </FluentProvider>
   );
 }
 export default App;
