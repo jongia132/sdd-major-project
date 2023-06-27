@@ -148,30 +148,18 @@ const Tasks = (props: Partial<ComboboxProps>) => {
         }
 
         // Load task based on IDB key
-        async readTask(target: IDBKeyRange) {
-            const db = await database()
-            const retrieved = await db.get("default", target)
-            db.close
-            return retrieved
-        }
+        // async readTask(target: IDBKeyRange) {
+        //     const db = await database()
+        //     const retrieved = await db.get("default", target)
+        //     db.close
+        //     return retrieved
+        // }
 
         // Return menu item
         contextMenu(target: IDBKeyRange) {
             return (
-                // <Menu>
-                //     <MenuTrigger>
-                //         <MenuButton size="small" icon={"*"}></MenuButton>
-                //     </MenuTrigger>
-                //     <MenuPopover>
-                //         <MenuList>
-                //             <MenuItem onClick={() => this.delete(target)}>Delete</MenuItem>
-                //             <EditTask target={target}/>
-                //         </MenuList>
-                //     </MenuPopover>
-                // </Menu>
                 <>
                     <Button onClick={() => this.delete(target)}>Delete</Button>
-                    <EditTaskWindow target={target} />
                 </>
             )
         }
@@ -192,37 +180,6 @@ const Tasks = (props: Partial<ComboboxProps>) => {
             query()
         }, [refreshState]
         )
-
-        // let stuff: Array<Object> = array
-        // stuff.map((object, index) => {
-        //     return(
-        //         <TableRow key={object.uid}>
-        //             <TableCell>
-        //                 {object.name}
-        //             </TableCell>
-        //             <TableCell>{object.description}</TableCell>
-        //             <TableCell>{object.date}</TableCell>
-        //         </TableRow>
-        //     )
-        // })
-
-        // for (const i in array) {
-        //     let parsed = Object.assign({}, array[i])
-        //     elements.push(
-        //         <TableRow key={parsed.uid} data-key={parsed.uid}>
-        //             <TableCell>
-        //                 <Checkbox size="large" checked={parsed.state} onClick={() => new Task().stateChange(parsed.uid)}></Checkbox>
-        //             </TableCell>
-        //             <TableCell>{parsed.name}</TableCell>
-        //             <TableCell>{parsed.description}</TableCell>
-        //             <TableCell>{parsed.date}</TableCell>
-        //             <TableCell>
-        //                 {new Task().contextMenu(parsed.uid)}
-        //             </TableCell>
-        //         </TableRow>
-        //     )
-        // }
-
 
         // New object mapper
         let parsed = array
@@ -249,15 +206,6 @@ const Tasks = (props: Partial<ComboboxProps>) => {
 
     // Create the dialogue to make a task
     function AddTaskWindow(target: IDBKeyRange) {
-        useEffect(() => {
-            async function query() {
-                new Task().readTask(target).then(e =>
-                    console.log(e)
-                )
-            }
-            query()
-        }, [])
-
         return (
             <Dialog modalType="modal">
                 <DialogTrigger disableButtonEnhancement>
@@ -288,42 +236,44 @@ const Tasks = (props: Partial<ComboboxProps>) => {
         )
     }
 
-    function EditTaskWindow() {
-        return (
-            <Dialog modalType="modal">
-                <DialogTrigger disableButtonEnhancement>
-                    <Button>Edit</Button>
-                </DialogTrigger>
-                <DialogSurface>
-                    <form method="post">
-                        <DialogBody>
-                            <DialogTitle>Edit Task</DialogTitle>
-                        </DialogBody>
-                        <DialogContent className={styles.modal}>
-                            <Label required>Name</Label>
-                            <Input required name="name"></Input>
-                            <Label>Description</Label>
-                            <Input name="description"></Input>
-                            <Label>Due date</Label>
-                            <DatePicker name="date" showCloseButton></DatePicker>
-                        </DialogContent>
-                        <DialogActions position="end">
-                            <DialogTrigger>
-                                <Button type="reset" appearance="secondary">Cancel</Button>
-                            </DialogTrigger>
-                            <Button type="submit" appearance="primary">Confirm</Button>
-                        </DialogActions>
-                    </form>
-                </DialogSurface>
-            </Dialog>
-        )
-    }
+    // function EditTaskWindow() {
+    //     return (
+    //         <Dialog modalType="modal">
+    //             <DialogTrigger disableButtonEnhancement>
+    //                 <Button>Edit</Button>
+    //             </DialogTrigger>
+    //             <DialogSurface>
+    //                 <form method="post">
+    //                     <DialogBody>
+    //                         <DialogTitle>Edit Task</DialogTitle>
+    //                     </DialogBody>
+    //                     <DialogContent className={styles.modal}>
+    //                         <Label required>Name</Label>
+    //                         <Input required name="name"></Input>
+    //                         <Label>Description</Label>
+    //                         <Input name="description"></Input>
+    //                         <Label>Due date</Label>
+    //                         <DatePicker name="date" showCloseButton></DatePicker>
+    //                     </DialogContent>
+    //                     <DialogActions position="end">
+    //                         <DialogTrigger>
+    //                             <Button type="reset" appearance="secondary">Cancel</Button>
+    //                         </DialogTrigger>
+    //                         <Button type="submit" appearance="primary">Confirm</Button>
+    //                     </DialogActions>
+    //                 </form>
+    //             </DialogSurface>
+    //         </Dialog>
+    //     )
+    // }
 
     return (
         <div className={`${"content"} ${styles.root}`}>
             <h1>Your tasks</h1>
             <Toolbar className={styles.toolbar} size="small">
-                <AddTaskWindow />
+                <AddTaskWindow lower={undefined} lowerOpen={false} upper={undefined} upperOpen={false} includes={function (key: any): boolean {
+                    throw new Error("Function not implemented.");
+                } } />
                 <ToolbarDivider />
                 <ResetDB />
             </Toolbar>

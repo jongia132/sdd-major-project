@@ -1,5 +1,7 @@
 .button {
     margin-top: 4rem;
+    color: black;
+    background: white
 }
 
 .input[type="number"] {
@@ -21,7 +23,11 @@
     text-align: center;
     display: flex;
     align-items: center;
-    padding: 7rem
+    padding: 7rem;
+    background: #212121;
+    border-radius: var(--borderRadiusXLarge);
+    width: fit-content;
+    display:grid
 }
 
 .root {
@@ -31,13 +37,6 @@
     color: white;
     flex-direction: column;
     justify-content: center;
-}
-
-.timer {
-    background: #212121;
-    border-radius: var(--rounded-radius);
-    width: fit-content;
-    display:grid
 }
 
 .digits {
