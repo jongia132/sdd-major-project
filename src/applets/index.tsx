@@ -3,9 +3,9 @@ import { PomodoroWidget } from "./Pomodoro";
 import { TasksWidget } from "./Tasks";
 const Index = () => {
     let user = {
-        name: "Jonathan",
-        year: "12",
-        rollCall: "12RW"
+        name: localStorage.getItem("user.name"),
+        year: localStorage.getItem("user.year"),
+        rollCall: localStorage.getItem("user.rollCall")
     }
 
     function Greeting() {
@@ -21,7 +21,8 @@ const Index = () => {
         <div className={`${styles.root} ${"content"}`}>
             <main>
                 <h1><Greeting />, {user.name}.</h1>
-                <p>THis is a test</p>
+                <p>{new Date().getHours()}:{new Date().getMinutes()}</p>
+                <p>{new Date().getDate()}/{new Date().getMonth()}/{new Date().getFullYear()}</p>
             </main>
             <div className={styles.widgets}>
                 <div className={styles.widget}>

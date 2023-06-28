@@ -46,11 +46,11 @@ function ResetDB() {
     return (
         <Dialog modalType="alert">
             <DialogTrigger>
-                <ToolbarButton appearance="subtle">DEBUG: Reset database</ToolbarButton>
+                <ToolbarButton appearance="subtle">Clear tasks</ToolbarButton>
             </DialogTrigger>
             <DialogSurface>
                 <DialogBody>
-                    <DialogTitle>CLEAR TASKS</DialogTitle>
+                    <DialogTitle>Clear Tasks</DialogTitle>
                     {load ? <Alert intent="warning">Waiting for open connections preventing this action. <Spinner></Spinner></Alert> : undefined}
                     {status ? <Alert intent="success">Reset successful.</Alert> : undefined}
                     <DialogContent>

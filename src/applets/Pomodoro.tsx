@@ -1,79 +1,124 @@
+import { Button, Spinner } from '@fluentui/react-components';
 import styles from './Pomodoro.module.css'
 import React, { useRef, useState } from "react"
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 const Pomodoro = () => {
-let interval: number
-    class Timer {
-        mins = 0
-        secs = 0
+    const intervalRef = useRef<number>()
+    const minInput = useRef<HTMLInputElement>(null)
+    let mins = 0
+    let hrs = 0
+    let secs = 0
+    let count = 0
+    const [countdown, setCountdown] = useState(0)
+    const [progressbar, setProgressbar] = useState(0)
+    const [displayMins, setDisplayMins] = useState("")
+    const [displaySecs, setDisplaySecs] = useState("")
+    let [button, btnState] = useState(true)
 
-        // constructor(mins: number, secs: number) {
-        //     this.mins = mins,
-        //     this.secs = secs
-        // }
-        startTimer(count: number) {
-            this.mins = count
-            console.log(this.mins)
-            if (this.mins < 1 || this.mins > 99) {
-                return alert("Invalid value")
-            }
-            btnState(!button)
-            let seconds = this.mins * 60
-            interval = setInterval(() => this.timer(seconds), 1000)
-            // return
+
+    // CHECK IF AN EXISTING TIMER IS ALREADY RUNNING
+    // if (!intervalRef.current) {
+    //     btnState(false)
+    // }
+
+    // Handle start button
+    function startTimer() {
+        let inputMins = minInput.current.value as unknown as number
+        if (inputMins < 1 || inputMins > 300) {
+            return alert("Invalid value")
         }
+        btnState(button => !button)
+        mins = inputMins
+        count = mins * 60
+        // count = 10
+        setDisplayMins(mins.toString())
+        setDisplaySecs("00")
+        setProgressbar(count)
+        setCountdown(count)
+        clearInterval(intervalRef.current)
+        intervalRef.current = setInterval(timer, 1000)
+    }
 
-
-        timer(count: number) {
-            console.log(count)
-            if (count > 0) {
-                count -= 1
-                this.mins = Math.floor(count / 60)
-                this.secs = count % 60
-                console.table(this)
+    // Timer itself
+    function timer() {
+        if (count > 0) {
+            count -= 1
+            mins = Math.floor(count / 60)
+            // hrs = Math.floor(mins / 60)
+            if (secs <= 10 && secs != 0) {
+                setDisplaySecs(("0" + (secs - 1)).toString())
             }
             else {
-                console.log("stopping")
-                this.stopTimer
+                secs = count % 60
+                setDisplaySecs(secs.toString())
             }
-        }
-
-        stopTimer(interval: number) {
-            console.log("stopped")
-            console.log(interval)
-            clearInterval(interval)
-            btnState(!button)
-        }
-    }
-
-    let [button, btnState] = useState(true)
-    // const timedisplay = useState(new Timer(7).timer())
-
-    // Start/stop button
-
-    function ToggleButton() {
-        if (button) {
-            console.log(minInput.current.value)
-            return <button id="start" className={styles.button} onClick={() => new Timer().startTimer(2)}>START</button>
+            secs = count % 60
+            setDisplayMins(mins.toString())
+            setCountdown(count)
         }
         else {
-            return <button id="stop" className={styles.button} onClick={() => new Timer().stopTimer(interval)}>STOP</button>
+            new window.Notification("Pomodoro Timer", { body: "Timer Finished" })
+            clearInterval(intervalRef.current)
+            btnState(button => !button)
         }
     }
 
-    const hrInput = useRef(null)
-    const minInput = useRef(null)
+    function stopTimer() {
+        clearInterval(intervalRef.current)
+        btnState(button => !button)
+        new window.Notification("Pomodoro Timer", { body: "Timer Stopped" })
+    }
 
+    // Start/stop button
+    function ToggleButton() {
+        if (button) {
+            return (<Button id="start" size='large' className={styles.button} appearance="primary" onClick={() => startTimer()}>START</Button>)
+        }
+        else {
+            return (<Button id="stop" size="large" className={styles.button} onClick={() => stopTimer()}>STOP</Button>)
+        }
+    }
+
+    function Presets() {
+        return (
+            <div className={styles.presets}>
+                <p>Preset 1</p>
+                <p>2</p>
+                <p>3</p>
+            </div>
+        )
+    }
     // Return app
     return (
         <div className={`${styles.root} ${"content"}`}>
-            <h1>Pomodoro Timer</h1>
             <div className={styles.timer}>
-                <progress value="0" max="60" />
+            <h1>Pomodoro Timer</h1>
                 <section className={styles.digits}>
-                    <input className={styles.input} type="number" min="0" max="9" step="1" ref={hrInput} />
-                    <p>:</p>
-                    <input className={styles.input} type="number" min="0" max="59" step="5" ref={minInput} />
+                    {button ? <><input className={styles.input} type="number" min="5" max="300" step="5" defaultValue={25} ref={minInput} /><p>Minutes</p></> :
+                        <div className={styles.circle}>
+                            <CircularProgressbar value={countdown} maxValue={progressbar} text={`${displayMins}:${displaySecs}`} styles={
+                                {
+                                    path: {
+                                        stroke: 'white',
+                                        strokeLinecap: 'butt',
+                                    },
+                                    text: {
+                                        fill: 'white'
+                                    },
+                                    trail: {
+                                        stroke: 'gray'
+                                    },
+                                    background: {
+                                        fill: 'red'
+                                    }
+                                }
+                            } />
+                        </div>
+                    }
                 </section>
+                <Presets />
                 <ToggleButton />
             </div>
         </div>

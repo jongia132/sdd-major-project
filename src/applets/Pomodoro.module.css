@@ -9,6 +9,8 @@
     background: inherit;
     border: 1px solid grey;
     color: inherit;
+    margin-right: 20px;
+    height: 1.5em;
 }
 
 .input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
@@ -18,16 +20,29 @@
     bottom: 0;
 }
 
+.presets {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* .title {
+    font-weight: bold;
+    font-size: var(--font-emphasis)
+} */
+
 .timer {
     font-size: var(--font-emphasis);
     text-align: center;
-    display: flex;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
     align-items: center;
-    padding: 7rem;
     background: #212121;
+    padding:3rem;
     border-radius: var(--borderRadiusXLarge);
-    width: fit-content;
-    display:grid
+    width: 30rem;
+    height: 30rem;
+    align-items: stretch;
+    justify-items: center;
 }
 
 .root {
@@ -41,7 +56,13 @@
 
 .digits {
     display: flex;
-    height:fit-content;
+    height:10em;
     justify-content: center;
+    align-items: center;
     font-weight: bolder;
+}
+
+.circle {
+    width: 10em;
+    height: 10em
 }
