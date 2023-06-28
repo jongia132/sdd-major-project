@@ -2,7 +2,9 @@ import { Display, Title1 } from "@fluentui/react-components";
 import styles from "./index.module.css"
 import { PomodoroWidget } from "./Pomodoro";
 import { TasksWidget } from "./Tasks";
+import { useEffect, useState } from "react";
 const Index = () => {
+    // Retrieve user details
     let user = {
         name: localStorage.getItem("user.name"),
         year: localStorage.getItem("user.year"),
@@ -18,14 +20,63 @@ const Index = () => {
         return (<span>{msg}</span>)
     }
 
+    // Live update to current time
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
+    const formattedTime = currentTime.toLocaleTimeString([], {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    });
+
+    // function QuoteDisplay() {
+    //     const [quote, setQuote] = useState('');
+    //     const [quoteLoaded, setQuoteLoaded] = useState(false);
+
+    //     useEffect(() => {
+    //       if (!quoteLoaded) {
+    //         const fetchQuote = async () => {
+    //           try {
+    //             const response = await fetch('https://api.quotable.io/random');
+    //             const data = await response.json();
+    //             const formattedQuote = `"${data.content}" - ${data.author}`;
+    //             setQuote(formattedQuote);
+    //             setQuoteLoaded(true);
+    //           } catch (error) {
+    //             console.error('Error fetching quote:', error);
+    //           }
+    //         };
+      
+    //         fetchQuote();
+    //       }
+    //     }, [quoteLoaded]);
+
+    //     return (
+    //         <p>{quote}</p>
+    //     );
+    // };
+
     return (
         <div className={`${styles.root} ${"content"}`}>
-            <main>
-                <h1><Greeting />, {user.name}.</h1>
+            <main className={styles.container}>
+                <h1 className={styles.greeting}>
+                    <Greeting />, {user.name}.
+                </h1>
                 <div className={styles.hero}>
                     <div>
-                        <Display className={styles.time}>{new Date().getHours()}:{new Date().getMinutes()}</Display>
-                        <p className={styles.date}>{new Date().getDate()}/{new Date().getMonth()}/{new Date().getFullYear()}</p>
+                        <p className={styles.time}>{formattedTime}</p>
+                        <p className={styles.date}>{new Date().toLocaleString(undefined, { weekday: 'long' })}</p>
+                        {/* <QuoteDisplay /> */}
                     </div>
                 </div>
             </main>

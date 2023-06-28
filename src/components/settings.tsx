@@ -1,15 +1,38 @@
 import styles from './settings.module.css'
 import { BackButton } from './modules'
-import { Button, SelectTabData, SelectTabEvent, Tab, TabList, TabValue } from '@fluentui/react-components'
-import React from 'react'
+import { Button, Checkbox, Input, Label, SelectTabData, SelectTabEvent, Tab, TabList, TabValue, Title2 } from '@fluentui/react-components'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 // Pages
 const settings = () => {
+    // Load current selected category
     const [selectedValue, setSelectedValue] = React.useState<TabValue>("general")
     function onTabSelect(e: SelectTabEvent, data: SelectTabData) {
         setSelectedValue(data.value)
     }
 
+    // Setting component
+    function Settings ({ setting, name, type }: { setting: string, name: string, type: "number" | "search" | "time" | "text" | "email" | "password" | "tel" | "url" | "date" | "datetime-local" | "month" | "week" }) {
+        const [value, setValue] = useState(localStorage.getItem(setting) || '');
+
+        const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+            setValue(event.target.value);
+        };
+
+        const handleSave = () => {
+            localStorage.setItem(setting, value);
+        };
+
+        return (
+            <div>
+                <Label>{name}</Label>
+                <Input type={type} value={value} onChange={handleChange} />
+                <Button onClick={handleSave}>Save</Button>
+            </div>
+        );
+    };
+
+    // Construct setting categories
     function General() {
         return (
             <section id="general">
@@ -31,8 +54,12 @@ const settings = () => {
     function Applet() {
         return (
             <section id="applet">
-                <h1>Applet</h1>
-                <p>Applet</p>
+                <h1>Applet settings</h1>
+                <Title2>Tasks</Title2>
+                <p>UH OG</p>
+                <Settings name='Show description' setting='tasks.description' type="text" />
+                <Settings name='Show date' setting='tasks.date' type="text"/>
+                <Title2>Pomodoro</Title2>
             </section>
         )
     }
@@ -41,7 +68,7 @@ const settings = () => {
         return (
             <section id="profile">
                 <h1>Profile</h1>
-                <p>Profile</p>
+                <Settings setting="user.name" name='Name' type={"text"}/>
             </section>
         )
     }
@@ -49,12 +76,19 @@ const settings = () => {
     function About() {
         return (
             <section id="about">
-                <h1>Debug</h1>
+                <h1>About</h1>
+                <Title2>Application info</Title2>
+                <p>The Sydney Technical High School student organiser.</p>
+                <Title2>Reset Application</Title2>
+                <p><Button onClick={() => localStorage.clear()}>Delete all app data</Button></p>
+                <Title2>Client information</Title2>
                 <p>{navigator.userAgent}</p>
+                <p>React version {React.version}</p>
             </section>
         )
     }
 
+    // Render page
     return (
         <div className={`${styles.html} prevent-select`}>
             <nav className={styles.settingsMenu}>

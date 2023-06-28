@@ -94,7 +94,7 @@ function ResetDB() {
 // }
 
 
-
+// Main interface
 const Tasks = (props: Partial<ComboboxProps>) => {
     // Intial setup
     // const [selectedValue, setSelectedValue] = useState<TabValue>(localStorage.getItem("tasks.lastSelected"))
@@ -267,6 +267,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
     //     )
     // }
 
+    // Render component
     return (
         <div className={`${"content"} ${styles.root}`}>
             <h1>Your tasks</h1>

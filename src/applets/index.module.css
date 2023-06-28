@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
 .widgets {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -12,24 +13,38 @@
 .widget {
     background: rgb(16, 16, 16);
     border-radius: var(--rounded-radius);
-    display:inline;
+    display: inline;
     padding: 1rem
 }
 
 .hero {
-    align-items: center;
-    text-align: center;
+    flex: 1;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    align-items: center;
 }
 
 .time {
     font-weight: var(--fontWeightBold);
+    text-shadow: var(--shadow16);
+    font-size: var(--fontSizeHero1000);
 }
 
 .date {
-    font-size: var(--fontSizeBase600);
+    font-size: var(--fontSizeHero700);
+    text-shadow: var(--shadow16);
     font-weight: var(--fontWeightSemibold);
-    line-height: var(--lineHeightHero700);
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Set the height of the container to the full viewport height */
+}
+
+.greeting {
+    align-self: flex-start;
 }

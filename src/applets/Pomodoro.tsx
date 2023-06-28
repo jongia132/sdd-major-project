@@ -5,6 +5,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const Pomodoro = () => {
+    // Track all variables
     const intervalRef = useRef<number>()
     const minInput = useRef<HTMLInputElement>(null)
     let mins = 0
@@ -65,6 +66,7 @@ const Pomodoro = () => {
         }
     }
 
+    // Stop button function
     function stopTimer() {
         clearInterval(intervalRef.current)
         btnState(button => !button)
@@ -81,6 +83,7 @@ const Pomodoro = () => {
         }
     }
 
+    // Timer presets
     function Presets() {
         return (
             <div className={styles.presets}>

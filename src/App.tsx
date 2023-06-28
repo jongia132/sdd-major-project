@@ -7,6 +7,7 @@ import Layout from './components/Layout'
 import Boogle from './applets/Boogle'
 import { Tasks } from "./applets/Tasks"
 import { FluentProvider, webDarkTheme } from '@fluentui/react-components'
+import Sentral from './applets/Sentral'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="pomodoro" element={<Pomodoro />} />
             <Route path="tasks" element={<Tasks />} />
             <Route path="boogle" element={<Boogle />} />
+            <Route path="sentral" element={<Sentral />} />
           </Route>
           <Route path="/settings" element={<Settings />} />
         </Routes>

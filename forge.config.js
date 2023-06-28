@@ -1,6 +1,6 @@
 module.exports = {
   packagerConfig: {
-    asar: false,
+    asar: true,
     "ignore": [
       "^(\/node_modules$)",
       "^(\/out$)",
@@ -35,9 +35,9 @@ module.exports = {
     },
   ],
   plugins: [
-    // {
-    //   name: '@electron-forge/plugin-auto-unpack-natives',
-    //   config: {},
-    // },
+    {
+      name: '@electron-forge/plugin-auto-unpack-natives',
+      config: {},
+    },
   ],
 };

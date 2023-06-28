@@ -39,6 +39,7 @@ const Sidebar = () => {
         return JSON.parse(localStorage.getItem("Sidebar.state") as string) ?? false
     })
 
+    // Store current sidebar state
     React.useEffect(() => {
         localStorage.setItem("Sidebar.state", JSON.stringify(state))
     }, [state])
@@ -61,7 +62,7 @@ const Sidebar = () => {
                 <BuildList lnk="/tasks" icon={taskIcon} name="Tasks" />
                 <BuildList lnk="" icon={focusIcon} name="Focus" />
                 <BuildList lnk="" icon={calendarIcon} name="Schedule" />
-                <BuildList lnk="/boogle" icon={undefined} name="Boogle" />
+                <BuildList lnk="/sentral" icon={undefined} name="Sentral" />
             </section>
             {/* Bottom */}
             <Tooltip content="Settings" relationship='label' positioning="after">
