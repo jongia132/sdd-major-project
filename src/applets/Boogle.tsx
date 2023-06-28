@@ -1,3 +1,3 @@
 export default function Boogle() {
-    return(<>Being reworked</>)
+    return(<webview src="https://sydneytech-h.sentral.com.au/portal/dashboard" allowpopups></webview>)
 }

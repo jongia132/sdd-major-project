@@ -218,11 +218,11 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                         </DialogBody>
                         <DialogContent className={styles.modal}>
                             <Label required>Name</Label>
-                            <Input required name="name"></Input>
+                            <Input appearance="filled-darker" required name="name"></Input>
                             <Label>Description</Label>
-                            <Input name="description"></Input>
+                            <Input appearance="filled-darker" name="description"></Input>
                             <Label>Due date</Label>
-                            <DatePicker name="date" value={new Date()} showCloseButton></DatePicker>
+                            <DatePicker appearance="filled-darker" name="date" value={new Date()} showCloseButton></DatePicker>
                         </DialogContent>
                         <DialogActions position="end">
                             <DialogTrigger>
