@@ -1,0 +1,22 @@
+.main {
+    height: 100dvh;
+    font-size: var(--font-emphasis);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex
+}
+
+.grid {
+    text-align: center;
+    display: grid;
+    align-items: center;
+    background: #38383875;
+    box-shadow: var(--shadow64);
+    backdrop-filter: blur(15px) brightness(0.5);
+    padding:3rem;
+    border-radius: var(--borderRadiusXLarge);
+    width: 30rem;
+    height: 70dvh;
+    justify-items: center;
+}

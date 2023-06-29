@@ -1,6 +1,6 @@
 module.exports = {
   packagerConfig: {
-    asar: true,
+    asar: false,
     "ignore": [
       "^(\/node_modules$)",
       "^(\/out$)",
@@ -12,7 +12,7 @@ module.exports = {
       ".forge.config.js",
       "tsconfig.json",
       "vite.config.ts",
-      "^(\/src$$)"
+      "./src"
     ]
   },
   rebuildConfig: {},
@@ -35,9 +35,9 @@ module.exports = {
     },
   ],
   plugins: [
-    {
-      name: '@electron-forge/plugin-auto-unpack-natives',
-      config: {},
-    },
+    // {
+    //   name: '@electron-forge/plugin-auto-unpack-natives',
+    //   config: {},
+    // },
   ],
 };

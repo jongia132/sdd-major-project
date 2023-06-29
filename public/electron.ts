@@ -3,16 +3,16 @@ const path = require('path')
 const createWindow = () => {
     const win = new BrowserWindow({
         webPreferences: {
-            preload: path.join(__dirname, 'preload.ts'),
+            preload: path.join(__dirname, 'preload.js'),
             webviewTag: true
         },
-        width: 900,
-        height: 600,
-        minWidth: 900,
-        minHeight: 600
+        width: 1200,
+        height: 700,
+        minWidth: 1200,
+        minHeight: 700
     })
-    win.loadURL("http://localhost:5173")
-    // win.loadFile(path.join(__dirname, "../dist/index.html"))
+    // win.loadURL("http://localhost:5173")
+    win.loadFile(path.join(__dirname, "../dist/index.html"))
     
 }
 

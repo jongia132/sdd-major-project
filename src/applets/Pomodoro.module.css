@@ -34,19 +34,21 @@
     font-size: var(--font-emphasis);
     text-align: center;
     display: grid;
-    grid-template-rows: auto 1fr auto auto;
+    grid-template-rows: auto auto 1fr auto;
     align-items: center;
-    background: #212121;
+    background: #38383875;
+    box-shadow: var(--shadow64);
+    backdrop-filter: blur(15px) brightness(0.5);
     padding:3rem;
     border-radius: var(--borderRadiusXLarge);
-    width: 30rem;
+    width: 20rem;
     height: 30rem;
     align-items: stretch;
     justify-items: center;
 }
 
 .root {
-    background: #171717;
+    /* background: #171717; */
     display: flex;
     align-items: center;
     color: white;

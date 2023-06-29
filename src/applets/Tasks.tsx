@@ -1,5 +1,5 @@
 import styles from "./Tasks.module.css"
-import { Toolbar, ToolbarButton, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, ComboboxProps, ToolbarDivider, Table, TableHeader, TableRow, TableBody, TableCell, TableHeaderCell, MenuButton, Menu, MenuTrigger, MenuList, MenuPopover, MenuItem, Checkbox } from "@fluentui/react-components"
+import { Toolbar, ToolbarButton, TabList, Tab, TabValue, Divider, SelectTabEvent, SelectTabData, Spinner, Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogContent, Label, Input, DialogActions, Button, ComboboxProps, ToolbarDivider, Table, TableHeader, TableRow, TableBody, TableCell, TableHeaderCell, MenuButton, Menu, MenuTrigger, MenuList, MenuPopover, MenuItem, Checkbox, TableCellLayout } from "@fluentui/react-components"
 import { Alert } from '@fluentui/react-components/unstable';
 import { DateFormatting, DatePicker } from "@fluentui/react-datepicker-compat";
 import { openDB, deleteDB, IDBPDatabase } from "idb"
@@ -191,8 +191,9 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                             <TableCell>
                                 <Checkbox size="large" checked={item.state} onClick={() => new Task().stateChange(item.uid)}></Checkbox>
                             </TableCell>
-                            <TableCell>{item.name}</TableCell>
-                            <TableCell>{item.description}</TableCell>
+                            <TableCell>
+                                <TableCellLayout truncate={true}>{item.name}</TableCellLayout></TableCell>
+                            <TableCell><TableCellLayout truncate={true}>{item.description}</TableCellLayout></TableCell>
                             <TableCell>{item.date}</TableCell>
                             <TableCell>
                                 {new Task().contextMenu(item.uid)}
@@ -274,7 +275,7 @@ const Tasks = (props: Partial<ComboboxProps>) => {
             <Toolbar className={styles.toolbar} size="small">
                 <AddTaskWindow lower={undefined} lowerOpen={false} upper={undefined} upperOpen={false} includes={function (key: any): boolean {
                     throw new Error("Function not implemented.");
-                } } />
+                }} />
                 <ToolbarDivider />
                 <ResetDB />
             </Toolbar>
@@ -297,9 +298,10 @@ const Tasks = (props: Partial<ComboboxProps>) => {
                             <TableHeaderCell>
                                 Description
                             </TableHeaderCell>
-                            <TableHeaderCell>
+                            <TableHeaderCell style={{ width: "200px" }}>
                                 Date
                             </TableHeaderCell>
+                            <TableHeaderCell style={{ width: "100px" }}></TableHeaderCell>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

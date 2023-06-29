@@ -19,6 +19,14 @@ h1 {
   margin: 2rem 0
 }
 
+h2 {
+  font-size: var(--font-emphasis);
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.326);
+  margin: 1rem 0
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

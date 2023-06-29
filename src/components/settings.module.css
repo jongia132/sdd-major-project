@@ -2,7 +2,8 @@
     background: #171717;
     color: white;
     display: grid;
-    grid-template-columns: auto 1fr
+    grid-template-columns: auto 1fr;
+    height: 100dvh;
 }
 
 .settingsMenu {
@@ -32,7 +33,7 @@
 }
 
 .prefPane {
-    /* display:grid; */
+    display:grid;
 }
 
 .section_header {
@@ -45,4 +46,10 @@
 .break {
     border-left: white 2px solid;
     width: 0
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
 }

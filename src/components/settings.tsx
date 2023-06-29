@@ -1,17 +1,18 @@
 import styles from './settings.module.css'
 import { BackButton } from './modules'
-import { Button, Card, CardFooter, CardPreview, Checkbox, Input, Label, SelectTabData, SelectTabEvent, Tab, TabList, TabValue, Title2 } from '@fluentui/react-components'
+import { Button, Card, CardFooter, CardPreview, Checkbox, Input, Label, Radio, SelectTabData, SelectTabEvent, Switch, Tab, TabList, TabValue, Title2 } from '@fluentui/react-components'
 import React, { useState } from 'react'
+import uploadicn from "../../src/assets/icons/folder_upload.svg"
 // Pages
 const settings = () => {
     // Load current selected category
-    const [selectedValue, setSelectedValue] = React.useState<TabValue>("general")
+    const [selectedValue, setSelectedValue] = React.useState<TabValue>("appearance")
     function onTabSelect(e: SelectTabEvent, data: SelectTabData) {
         setSelectedValue(data.value)
     }
 
     // Setting component
-    function Settings ({ setting, name, type }: { setting: string, name: string, type: "number" | "search" | "time" | "text" | "email" | "password" | "tel" | "url" | "date" | "datetime-local" | "month" | "week" }) {
+    function Settings({ setting, name, type }: { setting: string, name: string, type: "number" | "search" | "time" | "text" | "email" | "password" | "tel" | "url" | "date" | "datetime-local" | "month" | "week" }) {
         const [value, setValue] = useState(localStorage.getItem(setting) || '');
 
         const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
@@ -42,14 +43,31 @@ const settings = () => {
     }
 
     function Appearance() {
+        const [wp, setWp] = useState(localStorage.getItem('app.bg') ?? "default")
         return (
             <section id="appearance">
                 <h1>Appearance</h1>
-                <img src="/icons/wallpaper_FILL0_wght300_GRAD0_opsz48.svg" draggable='false' /><p>Background</p>
-                <Card>
-                    <CardPreview><img src='../assets/Yum.jpg'/></CardPreview>
-                    <CardFooter>Default</CardFooter>
-                </Card>
+                <h2>Background</h2>
+                <div className={styles.grid}>
+                    <Card selected={wp === "default"} onSelectionChange={() => { setWp("default"); localStorage.setItem('app.bg', "default") }}>
+                        <CardPreview><img src='../src/assets/Yum.jpg' /></CardPreview>
+                        <CardFooter>Default</CardFooter>
+                    </Card>
+                    <Card selected={wp === "wood"} onSelectionChange={() => { setWp("wood"); localStorage.setItem('app.bg', "wood") }}>
+                        <CardPreview><img src='../src/assets/wood.jpg' /></CardPreview>
+                        <CardFooter>Wood</CardFooter>
+                    </Card>
+                    <Card selected={wp === "barangaroo"} onSelectionChange={() => { setWp("barangaroo"); localStorage.setItem('app.bg', "barangaroo") }}>
+                        <CardPreview><img src='../src/assets/Bangaroo_Old.jpg' /></CardPreview>
+                        <CardFooter>Barangaroo</CardFooter>
+                    </Card>
+                    <Card selected={wp === "custom"} onSelectionChange={() => { setWp("custom"); localStorage.setItem('app.bg', "custom") }}>
+                        <CardPreview><img src='../src/assets/custom.jpg' /></CardPreview>
+                        <CardFooter>
+                            Mountains
+                        </CardFooter>
+                    </Card>
+                </div>
             </section>
         )
     }
@@ -58,10 +76,6 @@ const settings = () => {
         return (
             <section id="applet">
                 <h1>Applet settings</h1>
-                <Title2>Tasks</Title2>
-                <p>UH OG</p>
-                <Settings name='Show description' setting='tasks.description' type="text" />
-                <Settings name='Show date' setting='tasks.date' type="text"/>
                 <Title2>Pomodoro</Title2>
                 <Settings name='Preset 1 Name' setting='timer.p1_name' type='text' />
                 <Settings name='Preset 1 Time' setting='timer.p1_time' type="number" />
@@ -73,7 +87,8 @@ const settings = () => {
         return (
             <section id="profile">
                 <h1>Profile</h1>
-                <Settings setting="user.name" name='Name' type={"text"}/>
+                <Settings setting="user.name" name='Name' type={"text"} />
+                <Settings setting="user.rollCall" name='Roll Call' type={"text"} />
             </section>
         )
     }
@@ -84,12 +99,12 @@ const settings = () => {
                 <h1>About</h1>
                 <Title2>Application info</Title2>
                 <p>The Sydney Technical High School student organiser.</p>
-                <p>Version: <code>1.0</code></p>
+                <p>Version: <code>1.0A</code></p>
                 <Title2>Reset Application</Title2>
                 <p><Button onClick={() => localStorage.clear()}>Delete all app data</Button></p>
                 <Title2>Client information</Title2>
-                <p>{navigator.userAgent}</p>
-                <p>React version {React.version}</p>
+                <p><code>{navigator.userAgent}</code></p>
+                <p><code>React version {React.version}</code></p>
             </section>
         )
     }
@@ -100,13 +115,14 @@ const settings = () => {
             <nav className={styles.settingsMenu}>
                 <BackButton />
                 <h1 className={styles.section_header}>Settings</h1>
-                <TabList vertical defaultSelectedValue={"general"} onTabSelect={onTabSelect} size='large'>
-                    <Tab value="general">General</Tab>
+                <TabList vertical defaultSelectedValue={"appearance"} onTabSelect={onTabSelect} size='large'>
+                    {/* <Tab value="general">General</Tab> */}
                     <Tab value="appearance">Appearance</Tab>
-                    <Tab value="applet">Applet settings</Tab>
+                    {/* <Tab value="applet">Applet settings</Tab> */}
                     <Tab value="profile">Profile</Tab>
                     <Tab value="about">About</Tab>
                 </TabList>
+                <Button onClick={() => window.location.reload()}>Apply settings</Button>
             </nav>
             <div className={`${styles.prefPane} ${"content"}`}>
                 <div>

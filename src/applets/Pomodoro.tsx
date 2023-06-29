@@ -3,6 +3,7 @@ import styles from './Pomodoro.module.css'
 import React, { useImperativeHandle, useRef, useState } from "react"
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { Alert } from '@fluentui/react-components/unstable';
 
 const Pomodoro = () => {
     // Track all variables
@@ -18,15 +19,10 @@ const Pomodoro = () => {
     const [displaySecs, setDisplaySecs] = useState("")
     let [button, btnState] = useState(true)
 
-
-    // CHECK IF AN EXISTING TIMER IS ALREADY RUNNING
-    // if (!intervalRef.current) {
-    //     btnState(false)
-    // }
-
     // Handle start button
     function startTimer() {
-        let inputMins = minInput.current.value as unknown as number
+        // let inputMins = minInput.current.value as unknown as number
+        let inputMins = 5
         if (inputMins < 1 || inputMins > 300) {
             return alert("Invalid value")
         }
@@ -62,14 +58,17 @@ const Pomodoro = () => {
         else {
             new window.Notification("Pomodoro Timer", { body: "Timer Finished" })
             clearInterval(intervalRef.current)
+            localStorage.removeItem("pomotimer")
             btnState(button => !button)
         }
     }
 
     // Stop button function
     function stopTimer() {
+        console.log(intervalRef.current)
         clearInterval(intervalRef.current)
         btnState(button => !button)
+        localStorage.removeItem("pomotimer")
         new window.Notification("Pomodoro Timer", { body: "Timer Stopped" })
     }
 
@@ -91,7 +90,6 @@ const Pomodoro = () => {
                 <CompoundButton secondaryContent={<>{localStorage.getItem('timer.p1_time')} mins</>} onClick={() => localStorage.getItem('timer.p1_time')}>{localStorage.getItem('timer.p1_name')}</CompoundButton>
                 <CompoundButton secondaryContent={<>{localStorage.getItem('timer.p1_time')} mins</>} onClick={() => localStorage.getItem('timer.p1_time')}>{localStorage.getItem('timer.p1_name')}</CompoundButton>
                 <CompoundButton secondaryContent={<>{localStorage.getItem('timer.p1_time')} mins</>} onClick={() => localStorage.getItem('timer.p1_time')}>{localStorage.getItem('timer.p1_name')}</CompoundButton>
-
             </div>
         )
     }
@@ -99,6 +97,7 @@ const Pomodoro = () => {
     return (
         <div className={`${styles.root} ${"content"}`}>
             <div className={styles.timer}>
+            <Alert intent='warning'>Ensure the timer is stopped before leaving this page.</Alert>
                 <h1>Pomodoro Timer</h1>
                 <section className={styles.digits}>
                     {button ? <><input className={styles.input} type="number" min="5" max="300" step="5" defaultValue={25} ref={minInput} /><p>Minutes</p></> :
@@ -123,7 +122,7 @@ const Pomodoro = () => {
                         </div>
                     }
                 </section>
-                <Presets />
+                {/* <Presets /> */}
                 <ToggleButton />
             </div>
         </div>
