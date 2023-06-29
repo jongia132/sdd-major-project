@@ -1,8 +1,7 @@
 import styles from './settings.module.css'
 import { BackButton } from './modules'
-import { Button, Checkbox, Input, Label, SelectTabData, SelectTabEvent, Tab, TabList, TabValue, Title2 } from '@fluentui/react-components'
+import { Button, Card, CardFooter, CardPreview, Checkbox, Input, Label, SelectTabData, SelectTabEvent, Tab, TabList, TabValue, Title2 } from '@fluentui/react-components'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 // Pages
 const settings = () => {
     // Load current selected category
@@ -46,7 +45,11 @@ const settings = () => {
         return (
             <section id="appearance">
                 <h1>Appearance</h1>
-                <p>Appearance</p>
+                <img src="/icons/wallpaper_FILL0_wght300_GRAD0_opsz48.svg" draggable='false' /><p>Background</p>
+                <Card>
+                    <CardPreview><img src='../assets/Yum.jpg'/></CardPreview>
+                    <CardFooter>Default</CardFooter>
+                </Card>
             </section>
         )
     }
@@ -60,6 +63,8 @@ const settings = () => {
                 <Settings name='Show description' setting='tasks.description' type="text" />
                 <Settings name='Show date' setting='tasks.date' type="text"/>
                 <Title2>Pomodoro</Title2>
+                <Settings name='Preset 1 Name' setting='timer.p1_name' type='text' />
+                <Settings name='Preset 1 Time' setting='timer.p1_time' type="number" />
             </section>
         )
     }
@@ -79,6 +84,7 @@ const settings = () => {
                 <h1>About</h1>
                 <Title2>Application info</Title2>
                 <p>The Sydney Technical High School student organiser.</p>
+                <p>Version: <code>1.0</code></p>
                 <Title2>Reset Application</Title2>
                 <p><Button onClick={() => localStorage.clear()}>Delete all app data</Button></p>
                 <Title2>Client information</Title2>

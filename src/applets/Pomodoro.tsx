@@ -1,6 +1,6 @@
-import { Button, Spinner } from '@fluentui/react-components';
+import { Button, CompoundButton, Spinner } from '@fluentui/react-components';
 import styles from './Pomodoro.module.css'
-import React, { useRef, useState } from "react"
+import React, { useImperativeHandle, useRef, useState } from "react"
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -85,11 +85,13 @@ const Pomodoro = () => {
 
     // Timer presets
     function Presets() {
+
         return (
             <div className={styles.presets}>
-                <p>Preset 1</p>
-                <p>2</p>
-                <p>3</p>
+                <CompoundButton secondaryContent={<>{localStorage.getItem('timer.p1_time')} mins</>} onClick={() => localStorage.getItem('timer.p1_time')}>{localStorage.getItem('timer.p1_name')}</CompoundButton>
+                <CompoundButton secondaryContent={<>{localStorage.getItem('timer.p1_time')} mins</>} onClick={() => localStorage.getItem('timer.p1_time')}>{localStorage.getItem('timer.p1_name')}</CompoundButton>
+                <CompoundButton secondaryContent={<>{localStorage.getItem('timer.p1_time')} mins</>} onClick={() => localStorage.getItem('timer.p1_time')}>{localStorage.getItem('timer.p1_name')}</CompoundButton>
+
             </div>
         )
     }
@@ -97,7 +99,7 @@ const Pomodoro = () => {
     return (
         <div className={`${styles.root} ${"content"}`}>
             <div className={styles.timer}>
-            <h1>Pomodoro Timer</h1>
+                <h1>Pomodoro Timer</h1>
                 <section className={styles.digits}>
                     {button ? <><input className={styles.input} type="number" min="5" max="300" step="5" defaultValue={25} ref={minInput} /><p>Minutes</p></> :
                         <div className={styles.circle}>

@@ -33,7 +33,7 @@ const Index = () => {
         };
     }, []);
 
-    const formattedTime = currentTime.toLocaleTimeString([], {
+    const formattedTime = currentTime.toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: '2-digit',
         hour12: true

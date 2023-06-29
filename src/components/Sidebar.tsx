@@ -9,7 +9,7 @@ import pomodoroIcon from "../assets/icons/av_timer.svg"
 import taskIcon from '../assets/icons/task.svg'
 import focusIcon from '../assets/icons/focus.svg'
 import calendarIcon from '../assets/icons/calendar.svg'
-import uploadIcon from '../assets/icons/folder_upload.svg'
+import sentral from '../assets/icons/captive_portal.svg'
 import settingsIcon from '../assets/icons/settings.svg'
 import { Tooltip } from '@fluentui/react-components'
 
@@ -62,7 +62,7 @@ const Sidebar = () => {
                 <BuildList lnk="/tasks" icon={taskIcon} name="Tasks" />
                 <BuildList lnk="" icon={focusIcon} name="Focus" />
                 <BuildList lnk="" icon={calendarIcon} name="Schedule" />
-                <BuildList lnk="/sentral" icon={undefined} name="Sentral" />
+                <BuildList lnk="/sentral" icon={sentral} name="Sentral" />
             </section>
             {/* Bottom */}
             <Tooltip content="Settings" relationship='label' positioning="after">
